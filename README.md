@@ -114,25 +114,17 @@ editor](http://brackets.io)去编写你的所有代码。当你在Brackets的主
 接下来，你需要安装Pixi。这里有两种方式：**简单**的方法，用 **Git** 或者用 **Gulp 和 Node**。 
 
 <a id='installingpixithesimpleway'></a>
-### Installing Pixi the simple way
+### 安装Pixi的简单方法
 
-The version used for this introduction is **v4.0.0**
-and you can find `pixi.min.js` file on [Pixi's release page for v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0).
-Or you can get the latest version from [Pixi's main release page](https://github.com/pixijs/pixi.js/releases).
+本介绍用的Pixi版本是 **v4.0.0**，你可以在[Pixi's release page for v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)找到`pixi.min.js`文件。或者你可以从[Pixi's main release page](https://github.com/pixijs/pixi.js/releases)获取最新的版本。
 
-This one file is all you need to use Pixi. You can ignore all the
-other files in the repository: **you don't need them.**
+这个文件就是使用Pixi的全部所需。你可以忽略此仓库中的其他所有文件：**你不需要它们**。
 
-Next, create a basic HTML page, and use a
-`<script>` tag to link the
-`pixi.min.js` file that you've just downloaded. The `<script>` tag's `src`
-should be relative to your root directory where your webserver is
-running. Your `<script>` tag might look something like this:
+接下来，创建一个基本的HTML页面，然后用`<script>` 标签去链接刚才你下载的`pixi.min.js` 文件，这个`<script>` 标签的 `src`应当是你根目录的相对路径。你的`<script>` 标签应当看起来像这样
 ```html
 <script src="pixi.min.js"></script>
 ```
-Here's a basic HTML page that you could use to link Pixi and test that
-it's working:
+这是一个完整的HTML页面，你可以用它来加载Pixi然后测试一下它是可以工作的：
 ```html
 <!doctype html>
 <html>
@@ -154,13 +146,13 @@ it's working:
 </html>
 ```
 
-If Pixi is linking correctly,
-something like this will be displayed in your web browser's JavaScript console by default:
+如果Pixi载入成功，
+下面的信息将会在你的web浏览器的JavaScript控制台中默认显示出来：
 ```
  Pixi.js 4.0.0 - ✰ WebGL ✰      http://www.pixijs.com/    ♥♥♥ 
 ```
 
-Now you can start working with Pixi!
+现在你可以通过Pixi来工作啦！
 
 <a id='installingpixiwithgit'></a>
 ### Installing Pixi with Git
