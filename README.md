@@ -1,7 +1,7 @@
 学习Pixi
 =============
 
-一步一步的介绍如何用[Pixi rendering engine](https://github.com/pixijs/pixi.js) 制作游戏和交互性多媒体。 **[更新至 Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. 如果你喜欢本教程 [你肯定会喜欢这本书，它包含了更多80%的内容！](http://www.springer.com/us/book/9781484210956)
+一步一步的介绍如何用[Pixi渲染引擎](https://github.com/pixijs/pixi.js) 制作游戏和交互性多媒体。 **[更新至 Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. 如果你喜欢本教程 [你肯定会喜欢这本书，它包含了更多80%的内容！](http://www.springer.com/us/book/9781484210956)
 
 ### 目录表：
 1. [介绍](#introduction)
@@ -90,7 +90,7 @@ JavaScript](http://www.codecademy.com/tracks/javascript)
 选择最适合你学习方式的就行了。
 
 好了，明白了吗？
-你了解了什么是JavaScript变量、函数、数组以及对象以及如何使用它们吗？你明白了什么是[JSON数据文件(http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/)了吗？你是否使用过[Canvas绘图 API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)呢？
+你了解了什么是JavaScript变量、函数、数组以及对象以及如何使用它们吗？你明白了什么是[JSON数据格式文件](http://www.copterlabs.com/blog/json-what-it-is-how-it-works-how-to-use-it/)了吗？你是否使用过[Canvas绘图 API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)呢？
 
 为了使用Pixi，你也需要在你项目的根目录下开启一个web服务器。你知道什么是web服务器以及如何在你的项目文件夹里启动吗？最好的方式是使用[node.js](http://nodejs.org)，然后十分简单的安装一个[http-server](https://github.com/nodeapps/http-server)。然而，如果你想那么做，你需要在Unix的命令行中舒适的工作。你可以在[这个视频里](https://www.youtube.com/watch?feature=player_embedded&v=cX9ASUE3YAQ)学习如何使用Unix，当你完成时候，接着学习[这个视频](https://www.youtube.com/watch?v=INk0ATBbclc)。你应当学习如何使用Unix - 它只会耗费你几个小时的时间去学习而且它是一个和电脑交互的非常简单有趣的方式。
 
