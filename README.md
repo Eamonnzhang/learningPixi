@@ -106,15 +106,12 @@ editor](http://brackets.io)去编写你的所有代码。当你在Brackets的主
 （读者要求：这是一个 *在线文档*。如果你对某个指定的细节有任何问题或者需要任何相关内容的解释，请在这个GitHub仓库中创建一个 **issue**，我会更新更多的信息。）
 
 <a id='settingup'></a>
-Setting up
+建立环境
 ----------
 
-Before you start writing any code, create a folder for your project, and launch a
-webserver in the project's root directory. If you aren't running a
-webserver, Pixi won't work.
+在你开始写代码之前，为你的项目创建一个文件夹，然后在项目的根目录下启动一个web服务器。如果你不开启一个web服务器的话，Pixi将不会工作。
 
-Next, you need to install Pixi. There are two ways to do it: the
-**simple** way, with **Git** or with **Gulp and Node**. 
+接下来，你需要安装Pixi。这里有两种方式：**简单**的方法，用 **Git** 或者用 **Gulp 和 Node**。 
 
 <a id='installingpixithesimpleway'></a>
 ### Installing Pixi the simple way
