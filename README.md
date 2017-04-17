@@ -155,31 +155,21 @@ editor](http://brackets.io)去编写你的所有代码。当你在Brackets的主
 现在你可以通过Pixi来工作啦！
 
 <a id='installingpixiwithgit'></a>
-### Installing Pixi with Git
+### 通过Git安装Pixi
 
-You can also use Git to install use Pixi. (What is **git**? If you don't know [you can find out
-here](https://github.com/kittykatattack/learningGit).) This has some advantages:
-you can just run `git pull origin master` from the command line to update Pixi to
-the latest version. And, if you think you've found a bug in Pixi, 
-you can fix it and submit a pull request to have the bug fix added to the main repository.
+你也可以通过Git安装使用Pixi。（啥是 **git**？如果你不知道，[你可以在这儿弄清楚](https://github.com/kittykatattack/learningGit)。）用Git安装有一些优势就是：你可以只通过在命令行运行 `git pull origin master` 去更新Pixi到最新的版本。并且，如果你觉得你在Pixi中发现了一个bug，你可以修复它并在主仓库中提交一个修复bug的pull请求。
 
-To clone the Pixi repository with Git,  `cd`
-into your root project directory and type:
+为了通过Git克隆Pixi仓库， `cd`进入你的项目根目录并键入：
 ```
 git clone git@github.com:pixijs/pixi.js.git
 ```
-This automatically creates a folder called `pixi.js` and loads the **latest version** of Pixi into it.
-Keep in mind that this manual is tailored around *version 4.0.0*.
-To get this version simply checkout cloned `pixi.js` repository using tag like this:
+它会自动创建一个名为`pixi.js`的文件夹而且会加载**最新版本**的Pixi。请时刻记住，本手册是围绕 *version 4.0.0* 展开的。通过简单的切换分支的方式：
 ```
 git checkout tags/v4.0.0
 ```
+可以获取4.0版本。
 
-After Pixi is installed, create a basic HTML document, and use a
-`<script>` tag to include the
-`pixi.js` file from Pixi's `bin` folder. The `<script>` tag's `src`
-should be relative to your root directory where your webserver is
-running. Your `<script>` tag might look something like this:
+Pixi安装之后，创建一个基本的HTML文档，然后用`<script>`标签从Pixi的`bin`文件夹里加载`pixi.js`文件：
 ```html
 <script src="pixi.js/bin/pixi.js"></script>
 ```
