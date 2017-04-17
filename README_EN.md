@@ -1,71 +1,86 @@
-学习Pixi
+Learning Pixi
 =============
 
-一步一步的介绍用[Pixi rendering engine](https://github.com/pixijs/pixi.js) 制作游戏和交互性多媒。 **[更新至 Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. 如果你喜欢本教程 [你肯定会喜欢这本书，它包含了更多80%的内容！](http://www.springer.com/us/book/9781484210956)
+A step-by-step introduction to making games and interactive media with
+the [Pixi rendering engine](https://github.com/pixijs/pixi.js). **[Updated for Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. If you like this
+tutorial, [you'll love the book, which contains 80% more content!](http://www.springer.com/us/book/9781484210956)
 
 ### Table of contents:
-1. [介绍](#introduction)
-2. [建立环境](#settingup)
-  1. [安装Pixi的简单方法](#installingpixithesimpleway)
-  2. [通过Git安装Pixi](#installingpixiwithgit)
-  3. [通过Node和Gulp安装Pixi](#installingpixiwithnodeandgulp)
-3. [创建舞台的渲染器](#renderer)
-4. [Pixi 精灵](#sprites)
-5. [把图片加载到纹理缓存里](#loading)
-6. [展示精灵](#displaying)
-  1. [通过别名](#usingaliases)
-  2. [更过关于加载的小技巧](#alittlemoreaboutloadingthings)
-    1. [从普通JavaScript图像对象或画布中创建一个精灵](#makeaspritefromanordinaryjavascriptimageobject)
-    2. [为已加载的文件指定一个名字](#assigninganametoaloadingfile)
-    3. [监控加载进度](#monitoringloadprogress)
-    4. [更多关于Pixi加载器](#moreaboutpixisloader)
-7. [定位精灵](#positioning)
-8. [尺寸和缩放](#sizenscale)
-9. [旋转](#rotation)
-10. [从背景子图像集中制作精灵](#tileset)
-11. [使用纹理地图集（texture atlas）？](#textureatlas)
-12. [加载纹理地图集](#loadingatlas)
-13. [从一个已加载的纹理地图集中制作精灵](#createsprites)
-14. [移动精灵](#movingsprites)
-15. [使用速度属性](#velocity)
-16. [游戏状态](#gamestates)
-17. [键盘动作](#keyboard)
-18. [分组的精灵](#grouping)
-  1. [局部和全局位置](#localnglobal)
-  2. [给分组精灵用 ParticleContainer](#spritebatch)
-19. [Pixi的图元](#graphic)
-  1. [矩形](#rectangle)
-  2. [圆形](#circles)
-  3. [椭圆](#ellipses)
-  4. [圆角矩形](#roundedrects)
-  5. [线条](#lines)
-  6. [多边形](#polygons)
-20. [展示文字](#text)
-21. [碰撞检测](#collision)
-  1. [ hitTestRectangle 函数](hittest)
-22. [实战学习: 宝藏猎手](#casestudy)
-  1. [利用 setup 函数初始化游戏](#initialize)
-    1. [创建游戏场景](#gamescene)
-    2. [制作地牢, 门, 探险者 和 宝藏](#makingdungon)
-    3. [制作一堆怪物](#makingblob)
-    4. [制作血条](#healthbar)
-    5. [制作消息文字](#message)
-  2. [玩游戏](#playing)
-  3. [移动探险者](#movingexplorer)
-    1. [控制移动](#containingmovement)
-  4. [移动怪物](#movingmonsters)
-  5. [碰撞检查](#checkingcollisions)
-  6. [到达出口并结束游戏](#reachingexit)
-23. [更多关于精灵](#spriteproperties)
-24. [更进一步](#takingitfurther)</br>
+1. [Introduction](#introduction)
+2. [Setting up](#settingup)
+  1. [Installing Pixi the simple way](#installingpixithesimpleway)
+  2. [Installing Pixi with Git](#installingpixiwithgit)
+  3. [Installing Pixi with Node and Gulp](#installingpixiwithnodeandgulp)
+3. [Creating the stage and renderer](#renderer)
+4. [Pixi sprites](#sprites)
+5. [Loading images into the texture cache](#loading)
+6. [Displaying sprites](#displaying)
+  1. [Using Aliases](#usingaliases)
+  2. [A little more about loading things](#alittlemoreaboutloadingthings)
+    1. [Make a sprite from an ordinary JavaScript Image object or Canvas](#makeaspritefromanordinaryjavascriptimageobject)
+    2. [Assigning a name to a loaded file](#assigninganametoaloadingfile)
+    3. [Monitoring load progress](#monitoringloadprogress)
+    4. [More about Pixi's loader](#moreaboutpixisloader)
+7. [Positioning sprites](#positioning)
+8. [Size and scale](#sizenscale)
+9. [Rotation](#rotation)
+10. [Make a sprite from a tileset sub-image](#tileset)
+11. [Using a texture atlas](#textureatlas)
+12. [Loading the texture atlas](#loadingatlas)
+13. [Creating sprites from a loaded texture atlas](#createsprites)
+14. [Moving Sprites](#movingsprites)
+15. [Using velocity properties](#velocity)
+16. [Game states](#gamestates)
+17. [Keyboard Movement](#keyboard)
+18. [Grouping Sprites](#grouping)
+  1. [Local and global positions](#localnglobal)
+  2. [Using a ParticleContainer to group sprites](#spritebatch)
+19. [Pixi's Graphic Primitives](#graphic)
+  1. [Rectangle](#rectangle)
+  2. [Circles](#circles)
+  3. [Ellipses](#ellipses)
+  4. [Rounded rectangles](#roundedrects)
+  5. [Lines](#lines)
+  6. [Polygons](#polygons)
+20. [Displaying text](#text)
+21. [Collision detection](#collision)
+  1. [The hitTestRectangle function](hittest)
+22. [Case study: Treasure Hunter](#casestudy)
+  1. [Initialize the game in the setup function](#initialize)
+    1. [Creating the game scenes](#gamescene)
+    2. [Making the dungeon, door, explorer and treasure](#makingdungon)
+    3. [Making the blob monsters](#makingblob)
+    4. [Making health bar](#healthbar)
+    5. [Making message text](#message)
+  2. [Playing the game](#playing)
+  3. [Moving the explorer](#movingexplorer)
+    1. [Containing movement](#containingmovement)
+  4. [Moving the monsters](#movingmonsters)
+  5. [Checking for collisions](#checkingcollisions)
+  6. [Reaching the exit door and ending game](#reachingexit)
+23. [More about sprites](#spriteproperties)
+24. [Taking it further](#takingitfurther)</br>
   i.[Hexi](#hexi)</br>
-25. [支持该项目](#supportingthisproject)
+25. [Supporting this project](#supportingthisproject)
 
 <a id='introduction'></a>
-介绍
+Introduction
 ------------
 
-PixiJs是一个速度极快的2D精灵图渲染引擎。这意味着什么？意味着它能帮你展示，驱动和管理富有交互性的图形以便于制作游戏和通过使用JavaScript以及其他HTML5技术而创建的一系列应用。它有一套合理的、整齐的API并且提供了许多有用的特性，像支持纹理地图集并且还提供了动画精灵图（交互式图像）的简化流程。它也给你了一个完整的场景图以便于你能够创建嵌套的精灵图（一个精灵图在另一个精灵图里面），与此同时让你可以直接在精灵图上绑定鼠标和触摸事件。最重要的是，Pixi让你能够按照自己所想和所需，适应自己的编码风格，和其他有用的框架完美的结合。
+Pixi’s is an extremely fast 2D sprite rendering engine. What does that
+mean? It means that it helps you to display, animate and manage
+interactive graphics so that it's easy for you to make games and
+applications using
+JavaScript and other HTML5 technologies. It has a sensible,
+uncluttered API and includes many useful features, like supporting
+texture atlases and providing a streamlined system for animating
+sprites (interactive images). It also gives you a complete scene graph so that you can
+create hierarchies of nested sprites (sprites inside sprites), as well
+as letting you attach mouse and touch events directly to sprites. And,
+most
+importantly, Pixi gets out of your way so that you can use as much or
+as little of it as you want to, adapt it to your personal coding
+style, and integrate it seamlessly with other useful frameworks.
 
 Pixi’s API is actually a refinement of a well-worn and battle-tested
 API pioneered by Macromedia/Adobe Flash. Old-skool Flash developers
