@@ -628,39 +628,33 @@ All files loaded
 （注意：你可以在 `resource` 对象里获取更多额外的属性。 `resource.error` 会告诉你在加载文件过程中任何可能发生的错误。 `resource.data` 能让你获取到文件的原始二进制数据。）
 
 <a id='moreaboutpixisloader'></a>
-#### More about Pixi's loader
+#### 更多关于Pixi的加载器
 
-Pixi's loader is ridiculously feature-rich and configurable. Let's
-take a quick bird's-eye view of its usage to
-get you started.
+Pixi的加载器功能丰富而且可配置。在你开始使用之前，让我们快速一览一下它的用法吧。
 
-The loader's chainable `add` method takes 4 basic arguments:
+加载器的可链式执行的 `add` 方法接收4个基本参数：
 ```js
 add(name, url, optionObject, callbackFunction)
 ```
-Here's what the loader's source code documentation has to say about
-these parameters:
+这里是加载器的源代码文档关于这些参数的描述：
 
-`name` (string): The name of the resource to load. If it's not passed, the `url` is used.  
-`url` (string): The url for this resource, relative to the `baseUrl` of the loader.  
-`options` (object literal): The options for the load.  
-`options.crossOrigin` (Boolean): Is the request cross-origin? The default is to determine automatically.  
-`options.loadType`: How should the resource be loaded? The default value is `Resource.LOAD_TYPE.XHR`.  
-`options.xhrType`: How should the data being loaded be interpreted
-when using XHR? The default value is `Resource.XHR_RESPONSE_TYPE.DEFAULT`  
-`callbackFunction`: The function to call when this specific resource completes loading.
+`name` (string): 准备加载的资源的名字，如果不传递，则默认为 `url`。
+`url` (string): 资源的路径, 和加载器的 `baseUrl` 相对。
+`options` (object literal): 加载的配置。  
+`options.crossOrigin` (Boolean): 请求是跨域的吗? 默认是自动确定。
+`options.loadType`: 这个资源是怎么被加载的? 默认值是 `Resource.LOAD_TYPE.XHR`。
+`options.xhrType`: 当用XHR加载的资源时如何被解释? 默认值为 `Resource.XHR_RESPONSE_TYPE.DEFAULT` 。
+`callbackFunction`: 当指定资源加载完成时调用此函数。
 
-The only one of these arguments that's required is the `url` (the file that you want to
-load.) 
+唯一必须写的参数就是 `url`（你想要加载的文件）。
 
-Here are some examples of some ways you could use the `add`
-method to load files. These first ones are what the docs call the loader's "normal syntax":
+下面是一些你可能用 `add` 方法加载文件的例子。第一部分的写法是文档中被称为加载器的『正常语法』：
 ```js
 .add('key', 'http://...', function () {})
 .add('http://...', function () {})
 .add('http://...')
 ```
-And these are examples of the loader's "object syntax":
+这些例子是加载器的『对象语法』：
 ```js
 .add({
   name: 'key2',
@@ -683,8 +677,7 @@ And these are examples of the loader's "object syntax":
   crossOrigin: true
 })
 ```
-You can also pass the `add` method an array of objects, or urls, or
-both:
+你也可以往 `add` 方法里传一个对象数组或者路径或者全部：
 ```js
 .add([
   {name: 'key4', url: 'http://...', onComplete: function () {} },
@@ -692,14 +685,9 @@ both:
   'http://...'
 ]);
 ```
-(Note: If you ever need to reset the loader to load a new batch of files, call the
-loader's `reset` method: `PIXI.loader.reset();`)
+（注意：如果你想重置加载器去加载一批新的文件，调用加载器的 `reset` 方法： `PIXI.loader.reset();`）
 
-Pixi's loader has many more advanced features, including options to
-let you load and parse binary files of all types. This is not
-something you'll need to do on a day-to-day basis, and way outside the
-scope of this tutorial, so [make sure to check out the loader's GitHub repository
-for more information](https://github.com/englercj/resource-loader).
+Pixi的加载器有很多先进的功能，包括让你能配置加载和解析所有类型的二进制文件的选项。这不是你每天都要做的，也超出了本教程的范畴，所以[通过查看加载器的GitHub仓库获取更多信息](https://github.com/englercj/resource-loader)。
 
 <a id='positioning'></a>
 Positioning sprites
