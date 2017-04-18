@@ -510,76 +510,52 @@ function setup() {
 这就是你需要加载图像和创建精灵的全部东西。
 
 <a id='alittlemoreaboutloadingthings'></a>
-### A little more about loading things
+### 更过关于加载东西
 
-The format I've shown you above is what I suggest you use as your
-standard template for loading images and displaying sprites. So, you
-can safely ignore the next few paragraphs and jump straight to the
-next section, "Positioning sprites." But Pixi's `loader` object is
-quite sophisticated and includes a few features that you should be
-aware of, even if you don't use them on a regular basis. Let's
-look at some of the most useful.
+刚才上面给你展示的格式是我建议的一个标准的模板用于加载图像和展示精灵。所以你可放心的忽略接下来的一小段章节，直接跳到下一章，『定位精灵』。但是Pixi的 `loader` 对象是相当复杂的，包括一些你需要关心的特性，尽管在基础的用法中你可能用不到。让我们看一些最有用的东西。
 
 <a id='makeaspritefromanordinaryjavascriptimageobject'></a>
-#### Make a sprite from an ordinary JavaScript Image object or Canvas
+#### 从普通JavaScript图像对象或画布中创建一个精灵
 
-For optimization and efficiency it’s always best to make a sprite from
-a texture that’s been pre-loaded into Pixi’s texture cache. But if for
-some reason you need to make a texture from a regular JavaScript
-`Image`
-object, you can do that using Pixi’s `BaseTexture` and `Texture`
-classes:
+为了优化和效率，最好的方式是从已经在Pixi的纹理缓存中拿出一个缓存来制作一个精灵。但是如果因为某些原因你需要通过普通JavaScript图像对象制作一个纹理，你可以通过用`BaseTexture` 和 `Texture` 类：
 ```js
 var base = new PIXI.BaseTexture(anyImageObject),
     texture = new PIXI.Texture(base),
     sprite = new PIXI.Sprite(texture);
 ```
-You can use `BaseTexture.fromCanvas` if you want to make a texture
-from any existing canvas element:
+如果你想从任何已经存在的canvas节点中制造一个纹理，你可以用 `BaseTexture.fromCanvas` 。
 ```js
 var base = new PIXI.BaseTexture.fromCanvas(anyCanvasElement),
 ```
-If you want to change the texture the sprite is displaying, use the
-`texture` property. Set it to any `Texture` object, like this:
+如果你想改变正在展示的精灵纹理，用 `texture` 属性。设置它的值为任何 `Texture` 对象：
 ```js
 anySprite.texture = PIXI.utils.TextureCache["anyTexture.png"];
 ```
-You can use this technique to interactively change the sprite’s
-appearance if something significant happens to it in the game.
+如果在游戏里发生了什么重大的事情，你可以用这个技术来交互式的改变精灵的表现方式。
 
 <a id='assigninganametoaloadingfile'></a>
-#### Assigning a name to a loading file
+#### 为加载文件分配一个名字
 
-It's possible to assign a unique name to each resource you want to
-load. Just supply the name (a string) as the first argument in the
-`add` method. For example, here's how to name an image of a cat as
-`catImage`.
+为每一个资源设置一个独一无二的名字是有可能的。只要在`add`方法的第一个参数传入一个字符串名字。举个例子，怎么给猫的图片命名为 `catImage`：
 ```js
 PIXI.loader
   .add("catImage", "images/cat.png")
   .load(setup);
 ```
-This creates an object called `catImage` in `loader.resources`.
-That means you can create a sprite by referencing the `catImage` object, like this:
+它在 `loader.resources` 中创建了一个名为 `catImage`的对象。这意味着你可以通过引用 `catImage` 对象来创建一个精灵：
 ```js
 var cat = new PIXI.Sprite(PIXI.loader.resources.catImage.texture);
 ```
-However, I recommend you don't use this feature! That's because you'll
-have to remember all names you gave each loaded files, as well as make sure
-you don't accidentally use the same name more than once. Using the file path name, as we've done in previous
-examples is simpler and less error prone.
+然后，我个人不推荐你用这种特性！这是因为你需要不得不记住你给每一个加载文件的所有名字，同时也得确保你不会不经意间多次使用相同的名字。使用文件别名，正如我们以前例子里的一样，更简单和不容易出错。
 
 <a id='monitoringloadprogress'></a>
-#### Monitoring load progress
+#### 监控加载进度
 
-Pixi's loader has a special `progress` event that will call a
-customizable function that will run each time a file loads. `progress` events are called by the
-`loader`'s `on` method, like this:
+Pixi的加载器有一个特殊的 `progress` 事件会在每次当一个文件加载的时候调用一个可定制的函数。 `progress` 事件会被`loader`的`on`方法调用：
 ```js
 PIXI.loader.on("progress", loadProgressHandler);
 ```
-Here's how to include the `on` method in the loading chain, and call
-a user-definable function called `loadProgressHandler` each time a file loads.
+如何在一个加载链中添加 `on` 方法，然后在每次文件加载的时候调用用户自定义的 `loadProgressHandler` 函数：
 ```js
 PIXI.loader
   .add([
@@ -598,28 +574,18 @@ function setup() {
   console.log("setup");
 }
 ```
-Each time one of the files loads, the progress event calls
-`loadProgressHandler` to display "loading" in the console. When all three files have loaded, the `setup`
-function will run. Here's the output of the above code in the console:
+每次文件加载的时候，进度事件都会调用`loadProgressHandler`在控制台打印"loading"。当三个文件都加载完毕时，`setup` 函数会执行。这是上面的代码执行后在控制台的输出：
 ```js
 loading
 loading
 loading
 setup
 ```
-That's neat, but it gets better. You can also find out exactly which file
-has loaded and what percentage of overall files are have currently
-loaded. You can do this by adding optional `loader` and
-`resource` parameters to the `loadProgressHandler`, like this:
+这很简洁，但还可以变得更好。你也可以明确的指明哪个文件已经加载了以及文件加载的百分比，可以通过给 `loadProgressHandler`添加`loader` 和 `resource` 参数：
 ```js
 function loadProgressHandler(loader, resource) { //...
 ```
-You can then use `resource.url` to find the file that's currently
-loaded. (Use `resource.name` if you want to find the optional name
-that you might have assigned to the file, as the first argument in the
-`add` method.) And you can use `loader.progress` to find what
-percentage of total resources have currently loaded. Here's some code
-that does just that.
+然后你就可以用 `resource.url` 去找到当前已经加载的文件。（如果你想调用之前你通过add方法的一个参数给文件指定的名字，可以用 `resource.name`。 ）你也可以调用 `loader.progress` 来找出全部资源加载的百分比。下面的代码就做了上面的事情：
 ```js
 PIXI.loader
   .add([
@@ -647,7 +613,7 @@ function setup() {
   console.log("All files loaded");
 }
 ```
-Here's what this code will display in the console when it runs:
+下面的内容就是当上面的代码执行时会在控制台输出的信息：
 ```js
 loading: images/one.png
 progress: 33.333333333333336%
@@ -657,14 +623,9 @@ loading: images/three.png
 progress: 100%
 All files loaded
 ```
-That's really cool, because you could use this as the basis for
-creating a loading progress bar. 
+这真的很酷，因为你可以以此为基础制作进度条。
 
-(Note: There are additional properties you can access on the
-`resource` object. `resource.error` will tell you of any possible
-error that happened while
-trying to load a file. `resource.data` lets you
-access the file's raw binary data.)
+（注意：你可以在 `resource` 对象里获取更多额外的属性。 `resource.error` 会告诉你在加载文件过程中任何可能发生的错误。 `resource.data` 能让你获取到文件的原始二进制数据。）
 
 <a id='moreaboutpixisloader'></a>
 #### More about Pixi's loader
