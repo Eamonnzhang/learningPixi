@@ -336,33 +336,21 @@ Pixi有一个 `Sprite` 类，它是创建游戏精灵的通用方式。这里还
 你将会学习所有的三种方式，但是，之前，让我们先弄清楚在你利用pixi展示图片之前你需要了解哪些关于图片的知识。
 
 <a id='loading'></a>
-Loading images into the texture cache
+加载图像到纹理缓存中
 -------------------------------------
 
-Because Pixi renders the image on the GPU with WebGL, the image needs
-to be in a format that the GPU can process. A WebGL-ready image is
-called a **texture**. Before you can make a sprite display an image,
-you need to convert an ordinary image file into a WebGL texture. To
-keep everything working fast and efficiently under the hood, Pixi uses
-a **texture cache** to store and reference all the textures your
-sprites will need. The names of the textures are strings that match
-the file locations of the images they refer to. That means if you have
-a texture that was loaded from `"images/cat.png"`, you could find it in the texture cache like this:
+因为Pixi通过WebGL把图像渲染到GPU上面，图像需要被格式化为GPU可以处理的方式。一个为WebGL准备的图像称为**纹理**。在你制作精灵展示图像之前，你需要把一个原始的图像转化为一个WebGL纹理。为了保持所有的东西都能在底层快速高效的工作，Pixi使用了一个 **纹理缓存** 去存储和引用所有精灵图所需要的纹理。纹理的名字是字符串，指向图片文件的位置。这意味着如果你有一个纹理是从`"images/cat.png"`载入的，那么你可以在纹理缓存中通过这种方式来找到它：
 ```js
 PIXI.utils.TextureCache["images/cat.png"];
 ```
-The textures are stored in a WebGL compatible format that’s efficient
-for Pixi’s renderer to work with. You can then use Pixi’s `Sprite` class to make a new sprite using the texture.
+纹理都是已WebGL兼容格式存储的，这能让Pixi渲染器高效率的工作。然后你可以利用 `Sprite` 类通过用纹理来制作一个新的精灵。
 ```js
 var texture = PIXI.utils.TextureCache["images/anySpriteImage.png"];
 var sprite = new PIXI.Sprite(texture);
 ```
-But how do you load the image file and convert it into a texture? Use
-Pixi’s built-in `loader` object. 
+但是你如何加载一个图片并把它转化为一个纹理？用Pixi的内置 `loader` 对象。
 
-Pixi's powerful `loader` object is all you need to load any kind of image. 
-Here’s how to use it to load an image and call a function called `setup` when the 
-image has finished loading:
+Pixi强大的`loader` 对象是你加载任何一种图像的全部所需。这里告诉你了如何加载一个图像并在图像加载完成之后调用 `setup` 函数。
 ```js
 PIXI.loader
   .add("images/anyImage.png")
@@ -372,17 +360,14 @@ function setup() {
   //This code will run when the loader has finished loading the image
 }
 ```
-[Pixi’s development team
-recommends](http://www.html5gamedevs.com/topic/16019-preload-all-textures/?p=90907)
-that if you use the loader, you should create the sprite by
-referencing the texture in the `loader`’s `resources` object, like this:
+[Pixi开发团队推荐](http://www.html5gamedevs.com/topic/16019-preload-all-textures/?p=90907)
+如果你使用了加载器，你应该通过引用纹理中的`loader` 的 `resources` 对象来创建精灵，像这样：
 ```js
 var sprite = new PIXI.Sprite(
   PIXI.loader.resources["images/anyImage.png"].texture
 );
 ```
-Here’s an example of some complete code you could write to load an image, 
-call the `setup` function, and create a sprite from the loaded image:
+这里有一个例子，可以通过它来加载一个图像，调用`setup` 函数，并且从加载过的图像中创建一个精灵：
 ```js
 PIXI.loader
   .add("images/anyImage.png")
@@ -394,11 +379,9 @@ function setup() {
   );
 }
 ```
-This is the general format we’ll be using to load images and create
-sprites in this tutorial.
+我们将在本教程中使用这种一般的格式来图像和创建精灵。
 
-You can load multiple images at single time by listing them with
-chainable `add` methods, like this:
+你可以通过一连串的 `add` 方法来一次性加载许多图像：
 ```js
 PIXI.loader
   .add("images/imageOne.png")
@@ -406,8 +389,7 @@ PIXI.loader
   .add("images/imageThree.png")
   .load(setup);
 ```
-Better yet, just list all the files you want to load in
-an array inside a single `add` method, like this:
+更好的做法是，把所有的你想加载文件放到一个数组里，通过一个`add`方法：
 ```js
 PIXI.loader
   .add([
@@ -417,8 +399,7 @@ PIXI.loader
   ])
   .load(setup);
 ```
-The `loader` also lets you load JSON files, which you'll learn
-about ahead.
+`loader`也可以让你加载JSON文件，下面你将会学习到。
 
 <a id='displaying'></a>
 Displaying sprites
