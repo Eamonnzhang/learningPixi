@@ -690,23 +690,17 @@ add(name, url, optionObject, callbackFunction)
 Pixi的加载器有很多先进的功能，包括让你能配置加载和解析所有类型的二进制文件的选项。这不是你每天都要做的，也超出了本教程的范畴，所以[通过查看加载器的GitHub仓库获取更多信息](https://github.com/englercj/resource-loader)。
 
 <a id='positioning'></a>
-Positioning sprites
+定位精灵
 -------------------
 
-Now that you know how to create and display sprites, let's find out
-how to position and resize them.
+现在你知道如何创建和展示精灵图了，接下来让我们弄清楚如何定位和调节它们的尺寸吧。
 
-In the earlier example the cat sprite was added to stage at
-the top left corner. The cat has an `x` position of
-0 and a `y` position of 0. You can change the position of the cat by
-changing the values of its `x` and `y` properties. Here's how you can center the cat in the stage by
-setting its `x` and `y` property values to 96.
+在前面的例子中，猫精灵图被添加在舞台的左上角。猫的 `x` 和 `y`位置都为0。你可以通过改变 `x` 和 `y` 的值来改变猫的位置。如何把猫居中的代码：
 ```js
 cat.x = 96;
 cat.y = 96;
 ```
-Add these two lines of code anywhere inside the `setup`
-function, after you've created the sprite. 
+在创建完精灵图之后，把这两行加入到 `setup` 函数中：
 ```js
 function setup() {
 
@@ -724,29 +718,17 @@ function setup() {
   renderer.render(stage);
 }
 ```
-(Note: In this example,
-`Sprite` is an alias for `PIXI.Sprite`, `TextureCache` is an
-alias for `PIXI.utils.TextureCache`, and `resources` is an alias for
-`PIXI.loader.resources` as described earlier. I'll be
-using alias that follow this same format for all Pixi objects and
-methods in the example code from now on.)
+（注意：在这个例子里，`Sprite`是 `PIXI.Sprite`的别名，`TextureCache` 是`PIXI.utils.TextureCache`的别名， `resources`是`PIXI.loader.resources`的别名。我将会接下的例子的方法中都用这种格式。）
 
-These two new lines of code will move the cat 96 pixels to the right,
-and 96 pixels down. Here's the result:
+这两行新的代码会把猫向右移动96像素，向下移动96像素，这是结果：
 
-![Cat centered on the stage](/examples/images/screenshots/03.png)
+![猫在舞台居中](/examples/images/screenshots/03.png)
 
-The cat's top left corner (its left ear) represents its `x` and `y`
-anchor point. To make the cat move to the right, increase the
-value of its `x` property. To make the cat move down, increase the
-value of its `y` property. If the cat has an `x` value of 0, it will be at
-the very left side of the stage. If it has a `y` value of 0, it will
-be at the very top of the stage.
+猫的左上角（它的左耳朵）代表了它的 `x` 和 `y` 的锚点。增加 `x` 属性值，可以让猫能够向右移动；增加 `y` 属性值，可以让猫能够向下移动。
 
-![Cat centered on the stage - diagram](/examples/images/screenshots/04.png)
+![猫在舞台居中 - 图表](/examples/images/screenshots/04.png)
 
-Instead of setting the sprite's `x` and `y` properties independently,
-you can set them together in a single line of code, like this:
+你可以用一行代码把x和y的值一起设置，而不是单独设置：
 ```js
 sprite.position.set(x, y)
 ```
