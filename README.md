@@ -733,17 +733,15 @@ function setup() {
 sprite.position.set(x, y)
 ```
 <a id='sizenscale'></a>
-Size and scale
+尺寸和缩放
 --------------
 
-You can change a sprite's size by setting its `width` and `height`
-properties. Here's how to give the cat a `width` of 80 pixels and a `height` of
-120 pixels.
+你可以通过设置 `width` 和 `height来改变精灵图的大小，下面代码标识如何给猫一个80像素宽和120像素高的大小：
 ```js
 cat.width = 80;
 cat.height = 120;
 ```
-Add those two lines of code to the `setup` function, like this:
+在 `setup` 函数中添加这两行代码：
 ```js
 function setup() {
 
@@ -762,36 +760,29 @@ function setup() {
   stage.addChild(cat);
 }
 ```
-Here's the result:
+这是结果：
 
-![Cat's height and width changed](/examples/images/screenshots/05.png)
+![猫的高和宽改变](/examples/images/screenshots/05.png)
 
-You can see that the cat's position (its top left corner) didn't
-change, only its width and height.
+你会看到猫的位置（它的左上角）没有改变，只是它的宽和高改变了。
 
-![Cat's height and width changed - diagram](/examples/images/screenshots/06.png)
+![猫的宽和高改变 - 图表](/examples/images/screenshots/06.png)
 
-Sprites also have `scale.x` and `scale.y` properties that change the
-sprite's width and height proportionately. Here's how to set the cat's
-scale to half size:
+精灵图页有`scale.x`和`scale.y`属性可以成比例的改变精灵的宽和高。这里告诉你如何设置猫的大小未其原理的一半：
 ```js
 cat.scale.x = 0.5;
 cat.scale.y = 0.5;
-```
-Scale values are numbers between 0 and 1 that represent a
-percentage of the sprite's size. 1 means 100% (full size), while
-0.5 means 50% (half size). You can double the sprite's size by setting
-its scale values to 2, like this:
+``` 
+缩放的值在0和1之间取值，代表精灵图尺寸的百分比。1 代表 100%（全部尺寸），0.5 代表 一半尺寸。你可以通过设置缩放的值为2成倍的设置精灵图的尺寸：
 ```js
 cat.scale.x = 2;
 cat.scale.y = 2;
 ```
-Pixi has an alternative, concise way for you set sprite's scale in one
-line of code using the `scale.set` method.
+Pixi有一个可供替代的，简洁的方式通过一行代码 `scale.set` 方法设置精灵的尺寸。
 ```js
 cat.scale.set(0.5, 0.5);
 ```
-If that appeals to you, use it!
+如果它很吸引你，就用它！
 
 <a id='rotation'></a>
 Rotation
