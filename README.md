@@ -246,7 +246,7 @@ renderer.render(stage);
 
 恩，一个[黑色的正方形](http://rampantgames.com/blog/?p=7745)！
 
-Pixi的`autoDetectRenderer` 方法能计算出是用Canvas的绘图API还是WebGL去渲染图像，这取决于哪一种可用。它的第一个和第二个参数是canvas的宽和高。不仅如此，你可通过可配置的第三个参数去设置其他一些配置。第三个参数是一个字面量对象，这儿有一个如果通过它去设置抗锯齿、透明和分辨率的例子：
+Pixi的`autoDetectRenderer` 方法能计算出是用Canvas的绘图API还是WebGL去渲染图像，这取决于哪一种可用。它的第一个和第二个参数是canvas的宽和高。不仅如此，你可通过可配置的第三个参数去设置其他一些配置。第三个参数是一个字面量对象，这儿有一个如何通过它去设置抗锯齿、透明和分辨率的例子：
 ```js
 renderer = PIXI.autoDetectRenderer(
   256, 256,
@@ -255,7 +255,7 @@ renderer = PIXI.autoDetectRenderer(
 ```
 第三个参数是可配置的 - 如果你很满意Pixi的默认设置你可以不用管它，通常也并没有需要去改变他们。（但是，如果你需要，请查询有关[Canvas
 Renderer](http://pixijs.download/release/docs/PIXI.CanvasRenderer.html)和[WebGLRenderer](http://pixijs.download/release/docs/PIXI.WebGLRenderer.html)
-for more information.)的文档）
+了解更多信息）
 
 这些配置都是干啥的？
 ```js
@@ -266,7 +266,7 @@ explanation](http://www.goodboydigital.com/pixi-js-v2-fastest-2d-webgl-renderer/
 
 （注意：渲染器有一个额外的、第四个选项叫 `preserveDrawingBuffer` 默认为 `false`。唯一需要设置它为 `true`的理由就是你是否需要在一个WebGL canvas上下文中调用Pixi的专用`dataToURL`方法。）
 
-Pixi的渲染器对象会默认为WebGL，因为WebGL不可意思的快，并且能够让你使用一些将来你会学到的壮观的视觉效果。但是如果你需要强制使用Canvas绘图API渲染，你可以这样做：
+Pixi的渲染器对象会默认为WebGL，因为WebGL不可思议的快，并且能够让你使用一些将来你会学到的壮观的视觉效果。但是如果你需要强制使用Canvas绘图API渲染，你可以这样做：
 ```js
 renderer = new PIXI.CanvasRenderer(256, 256);
 ```
@@ -276,7 +276,7 @@ renderer = new PIXI.CanvasRenderer(256, 256);
 ```js
 renderer = new PIXI.WebGLRenderer(256, 256);
 ```
-`renderer.view` 对象只是一个在普通不过的 `<canvas>` 对象，所以你可以像控制其他任何 canvas 对象一样控制它。这里告诉你如何给canvas一个虚线边框：
+`renderer.view` 对象只是一个再普通不过的 `<canvas>` 对象，所以你可以像控制其他任何 canvas 对象一样控制它。这里告诉你如何给canvas一个虚线边框：
 ```js
 renderer.view.style.border = "1px dashed black";
 ```
@@ -309,51 +309,31 @@ renderer.resize(window.innerWidth, window.innerHeight);
 如果你想让canvas可以自动缩放适应适应所有的浏览器窗口大小，你可以用[这个自动缩放窗口函数](https://github.com/kittykatattack/scaleToWindow)。
 
 <a id='sprites'></a>
-Pixi sprites
+Pixi 精灵
 ------------
 
-In the previous section you learned how to create a `stage` object,
-like this:
+在上一个章节，你学会了如果去创建一个 `stage` 对象：
 ```js
 var stage = new PIXI.Container();
 ```
-The `stage` is a Pixi `Container` object. You can think of a container
-as a kind of empty box that will group together and store whatever you
-put inside it.
-The `stage` object that we created is the root container for all the visible
-things in your scene. Pixi requires that you have one root container
-object, because the `renderer` needs something to render:
+`stage` 是一个Pixi `Container` 对象。你可以把这个容器想象成一个可以把你所有想放的东西放进去的一种空盒子。
+我们创建的 `stage` 对象是在你创建的场景中所有可视物体的根容器。Pixi需要你有一个根容器，因为 `renderer` 需要有一个东西去渲染上去：
 ```js
 renderer.render(stage);
 ```
-Whatever you put inside the `stage` will be
-rendered on the canvas. Right now the `stage` is empty, but soon we're going to
-start putting things inside it.
+不管你往这个 `stage` 里面放什么都会被渲染到canvas上面。现在这个 `stage` 是空的，但是一会儿我们就会往里面放一些东西。
 
-(Note: You can give your root container any name you like. Call it
-`scene` or `root` if you prefer. The name
-`stage` is just an old but useful convention, and one we'll be
-sticking to in this tutorial.)
+（注意：你可以给你的根容器任何你名字。如果你喜欢的话可以把它叫做 `scene` 或者 `root`。`stage` 这个名字仅仅是一个古老而有用的约定，我们也会在本教程中一直使用它。）
 
-So what do you put on the stage? Special image objects called
-**sprites**. Sprites are basically just images that you can control
-with code. You can control their position, size, and a host of other
-properties that are useful for making interactive and animated graphics. Learning to make and control sprites is really the most
-important thing about learning to use Pixi. If you know how to make
-sprites and add them to the stage, you're just a small step away from
-starting to make games.
+那么你想在舞台上放什么？特殊的图片对象被叫做 **精灵图**。你可以控制它们的位置，尺寸以及其他许多有用的可以制作交互式动画图形的属性。学习如何控制一个精灵图对学习如何使用Pixi来说是十分重要的。如果你知道了如何制作精灵图并把它们添加到舞台上，你才刚刚迈出了制作游戏的一小步、
 
-Pixi has a `Sprite` class that is a versatile way to make game
-sprites. There are three main ways to create them:
+Pixi有一个 `Sprite` 类，它是创建游戏精灵的通用方式。这里还有三个主要的方式去创建它们：
 
-- From a single image file.
-- From a sub-image on a **tileset**. A tileset is a single, big image that
-includes all the images you'll need in your game.
-- From a **texture atlas** (A JSON file that defines the size and position of an image on a tileset.)
+- 使用单独一个图片文件
+- 使用**图片集** 的一个子图像。图片集是一个单独的，大的图像，它包含了所有游戏中你需要的图片。（译者注：就是我们说的雪碧图吧）。
+- 使用**纹理图集**（一个定义了在雪碧图中一个图片的位置和大小的JSON文件）
 
-You’re going to learn all three ways, but, before you do, let’s find
-out what you need to know about images before you can display them
-with Pixi.
+你将会学习所有的三种方式，但是，之前，让我们先弄清楚在你利用pixi展示图片之前你需要了解哪些关于图片的知识。
 
 <a id='loading'></a>
 Loading images into the texture cache
