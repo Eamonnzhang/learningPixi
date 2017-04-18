@@ -215,24 +215,17 @@ details on how](https://github.com/GoodBoyDigital/pixi.js). But, in general
 there's no need to do this.
 
 <a id='renderer'></a>
-Creating the renderer and stage
+创建渲染器和舞台
 -------------------------------
 
-Now you can start using Pixi!
+现在可以开始使用Pixi了！
 
-But how? 
+但是咋使用呢？
 
-The first step is to create a rectangular
-display area that you can start displaying images on. Pixi has a
-`renderer` object that creates this for you. It
-automatically generates an HTML `<canvas>` element and figures out how
-to display your images on the canvas. You then need to create a
-special Pixi `Container` object called the `stage`. As you'll see
-ahead, this stage object is going to be used as the root container
-that holds all the things you want Pixi to display. 
+第一步就是创建一个矩形显示区域用来展示图片。可以用Pixi的`renderer`对象可以创建。它能自动生成一个HTML`<canvas>`节点并且能指定如何在Canvas上展示你的图像。然后你需要创建一个特殊的Pixi`Container`对象名为`stage`。正如你将看到，这个舞台对象会被用作持有所有你想让Pixi展示的东西的根容器。
 
-Here’s the code you need to write to create a `renderer`
-and `stage`. Add this code to your HTML document between the `<script>` tags:
+你需要写如下代码去创建一个`renderer` 和 `stage`。把这段代码通过`<script>`便签括起来并添加到你的HTML文档中：
+
 ```js
 //Create the renderer
 var renderer = PIXI.autoDetectRenderer(256, 256);
@@ -246,115 +239,74 @@ var stage = new PIXI.Container();
 //Tell the `renderer` to `render` the `stage`
 renderer.render(stage);
 ```
-This is the most basic code you need write to get started using Pixi. 
-It produces a black 256 pixel by 256 pixel canvas element and adds it to your
-HTML document. Here's what this looks like in a browser when you run this code.
 
-![Basic display](/examples/images/screenshots/01.png)
+这是你开始使用Pixi的你需要写的最基本的代码。它会生成一个黑色的256*256大小的Canvas节点并且把它添加到你的HTML文档中。当你运行这段代码的时候，会有如下效果：
 
-Yay, a [black square](http://rampantgames.com/blog/?p=7745)!
+![基本展示](/examples/images/screenshots/01.png)
 
-Pixi’s `autoDetectRenderer` method figures out whether to use the
-Canvas Drawing API or WebGL to render graphics, depending on which is
-available. It's first and second arguments are the width and height of the
-canvas. However, you can include an optional third argument with some
-additional values you can set. This third argument is an object
-literal, and here's how could use it set anti-aliasing, transparency
-and resolution:
+恩，一个[黑色的正方形](http://rampantgames.com/blog/?p=7745)！
+
+Pixi的`autoDetectRenderer` 方法能计算出是用Canvas的绘图API还是WebGL去渲染图像，这取决于哪一种可用。它的第一个和第二个参数是canvas的宽和高。不仅如此，你可通过可配置的第三个参数去设置其他一些配置。第三个参数是一个字面量对象，这儿有一个如果通过它去设置抗锯齿、透明和分辨率的例子：
 ```js
 renderer = PIXI.autoDetectRenderer(
   256, 256,
   {antialias: false, transparent: false, resolution: 1}
 );
 ```
-This third argument (the options object) is optional - if you're happy with Pixi's default
-settings you can leave it out, and there's usually no need to change
-them. (But, if you need to, see Pixi's documentation on the [Canvas
-Renderer](http://pixijs.download/release/docs/PIXI.CanvasRenderer.html)
-and
-[WebGLRenderer](http://pixijs.download/release/docs/PIXI.WebGLRenderer.html)
-for more information.)
+第三个参数是可配置的 - 如果你很满意Pixi的默认设置你可以不用管它，通常也并没有需要去改变他们。（但是，如果你需要，请查询有关[Canvas
+Renderer](http://pixijs.download/release/docs/PIXI.CanvasRenderer.html)和[WebGLRenderer](http://pixijs.download/release/docs/PIXI.WebGLRenderer.html)
+for more information.)的文档）
 
-What do those options do?
+这些配置都是干啥的？
 ```js
 {antialias: false, transparent: false, resolution: 1}
 ```
-`antialias` smoothes the edges of fonts and graphic primitives. (WebGL
-anti-aliasing isn’t available on all platforms, so you’ll need to test
-this on your game’s target platform.) `transparent` makes the canvas
-background transparent. `resolution` makes it easier to work with
-displays of varying resolutions and pixel densities. Setting
-the resolutions is a little
-outside the scope of this tutorial, but check out [Mat Grove's
-explanation](http://www.goodboydigital.com/pixi-js-v2-fastest-2d-webgl-renderer/)
-about how to use `resolution` for all the details. But usually, just keep `resolution`
-at 1 for most projects and you'll be fine. 
+`antialias`（抗锯齿）能够平滑字体和图元的边缘。（WebGL的图形保真并不适用于所有的平台，所以你需要在你游戏的目标平台上测试一下。）`transparent`能让canvas背景透明。`resolution`能使在不同分辨率和像素密度的显示器上工作起来更简单。设置分辨率有点儿稍微超出本教程的范畴，查看[Mat Grove's
+explanation](http://www.goodboydigital.com/pixi-js-v2-fastest-2d-webgl-renderer/)中关于如果使用`resolution`可以找到所有细节。但是通常呢，在大多数项目里只需要保持 `resolution` 的值为1就好了。
 
-(Note: The renderer has an additional, fourth, option called `preserveDrawingBuffer` that
-defaults to `false`. The only reason to it set it
-to `true` is if you ever need to call Pixi's specialized `dataToURL`
-method on a WebGL canvas context.)
+（注意：渲染器有一个额外的、第四个选项叫 `preserveDrawingBuffer` 默认为 `false`。唯一需要设置它为 `true`的理由就是你是否需要在一个WebGL canvas上下文中调用Pixi的专用`dataToURL`方法。）
 
-Pixi's renderer object will default to WebGL, which is good, because WebGL is
-incredibly fast, and lets you use some spectacular visual effects that
-you’ll learn all about ahead. But if you need to force Canvas Drawing
-API rendering over WebGL, you can do it like this:
+Pixi的渲染器对象会默认为WebGL，因为WebGL不可意思的快，并且能够让你使用一些将来你会学到的壮观的视觉效果。但是如果你需要强制使用Canvas绘图API渲染，你可以这样做：
 ```js
 renderer = new PIXI.CanvasRenderer(256, 256);
 ```
-Only the first two arguments are required: `width` and `height`.
+只有前两个参数是必要的：'width' 和 'height'。
 
-You can force WebGL rendering like this:
+你可以像这样强制WebGL渲染：
 ```js
 renderer = new PIXI.WebGLRenderer(256, 256);
 ```
-The `renderer.view` object is just a plain old ordinary `<canvas>`
-object, so you can control it the same way you would control any other
-canvas object. Here's how to give the canvas an optional dashed
-border:
+`renderer.view` 对象只是一个在普通不过的 `<canvas>` 对象，所以你可以像控制其他任何 canvas 对象一样控制它。这里告诉你如何给canvas一个虚线边框：
 ```js
 renderer.view.style.border = "1px dashed black";
 ```
-If you need to change the background color of the canvas after you’ve
-created it, set the `renderer` object’s `backgroundColor` property to
-any hexadecimal color value:
+如果你想在创建canvas后改变它的背景颜色，设置 `renderer` 对象的 `backgroundColor` 属性为其他任何十六进制的颜色值：
 ```js
 renderer.backgroundColor = 0x061639;
 ```
-If you want to find the width or the height of the `renderer`, use
-`renderer.view.width` and `renderer.view.height`.
+如果你想获取 `renderer` 的宽和高，用 `renderer.view.width` 和 `renderer.view.height`。
 
-(Importantly: although the `stage` also has `width` and `height` properties, *they don't refer to
-the size of the rendering window*. The stage's `width` and `height`
-just tell you the area occupied by the things you put inside it - more
-on that ahead!)
+（重要提示：尽管 `stage` 也有 `width` 和 `height` 属性，*它们不是指渲染窗口的大小*。舞台的 `width` 和 `height` 只是告诉你你放的东西所占用的区域 - 更多解释将会在下面看到！）
 
-To change the size of the canvas, use the `renderer`’s `resize`
-method, and supply any new `width` and `height` values. But, to make
-sure the canvas is resized to match the resolution, set `autoResize`
-to `true`.
+可以用 `renderer` 的 `resize` 方法设置任何新的 `width` 和 `height` 值去改变 canvas 的大小。但是，请确保canvas和分辨率是大小相匹配的，设置 `autoResize` 为 `true`。
 ```js
 renderer.autoResize = true;
 renderer.resize(512, 512);
 ```
-If you want to make the canvas fill the entire window, you can apply this
-CSS styling and resize the renderer to the size of the browser window.
-```
+如果你想让canvas占据整个窗口，你可以设置CSS样式并且调整渲染器的大小为浏览器窗口的大小。
+```css
 renderer.view.style.position = "absolute";
 renderer.view.style.display = "block";
 renderer.autoResize = true;
 renderer.resize(window.innerWidth, window.innerHeight);
 ```
-But, if you do that, make sure you also set the default padding and
-margins to 0 on all your HTML elements with this bit of CSS code:
+但是如果你那么做了，请确保用下面的一小段css代码设置你所有的HTML节点的默认内边距和外边距为0：
 ```html
 <style>* {padding: 0; margin: 0}</style>
 ```
-(The asterisk, *, in the code above, is the CSS "universal selector",
-which just means "all the tags in the HTML document".)
+（在上面代码中的星号：*，是CSS的『通用选择符』，表示『在HTML文档中的所有标签』。）
 
-If you want the canvas to scale proportionally to any browser window
-size, you can use [this custom scaleToWindow function.](https://github.com/kittykatattack/scaleToWindow).
+如果你想让canvas可以自动缩放适应适应所有的浏览器窗口大小，你可以用[这个自动缩放窗口函数](https://github.com/kittykatattack/scaleToWindow)。
 
 <a id='sprites'></a>
 Pixi sprites
