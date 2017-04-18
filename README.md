@@ -402,34 +402,28 @@ PIXI.loader
 `loader`也可以让你加载JSON文件，下面你将会学习到。
 
 <a id='displaying'></a>
-Displaying sprites
+展示精灵
 ------------------
 
-After you've loaded an image, and used it to make a sprite, there
-are two more things you have to do before you can actually see it on
-the canvas:
+在你加载了一个图片并用它制作了一个精灵之后，想要在canvas上看到它，还有两件事情你不得不做。
 
--1. You need to add the sprite to Pixi's `stage` with the `stage.addChild` method, like this:
+-1. 你需要通过 `stage.addChild` 方法把精灵添加到 Pixi的 `stage`中：
 ```js
 stage.addChild(cat);
 ```
-The stage is the main container that holds all of your sprites.
+舞台是容纳所有精灵的主要容器。
 
--2. You need to tell Pixi's `renderer` to render the stage.
+-2. 你需要告诉Pixi的 `renderer` 去渲染这个舞台。
 ```js
 renderer.render(stage);
 ```
-**None of your sprites will be visible before you do these two
-things**.
+**在你不做以上两步之前任何精灵你都看不到**
 
-Before we continue, let's look at a practical example of how to use what
-you've just learnt to display a single image. In the `examples/images`
-folder you'll find a 64 by 64 pixel PNG image of a cat.
+在我们继续之前，让我们看一个如何用刚才学的东西去展示一个单独的图片的实际例子。在 `examples/images` 文件夹中，你能找到一个64*64的猫的PNG图片。
 
-![Basic display](/examples/images/cat.png)
+![基本展示](/examples/images/cat.png)
 
-Here's all the JavaScript code you need to load the image, create a
-sprite, and display it on Pixi's stage:
+加载图像，创建一个精灵，并把它展示在Pixi舞台上的所有的JavaScript代码：
 ```js
 var stage = new PIXI.Container(),
     renderer = PIXI.autoDetectRenderer(256, 256);
@@ -455,47 +449,34 @@ function setup() {
   renderer.render(stage);
 }
 ```
-When this code runs, here's what you'll see:
+当运行以上代码时，你将会看到：
 
-![Cat on the stage](/examples/images/screenshots/02.png)
+![舞台上的猫](/examples/images/screenshots/02.png)
 
-Now we're getting somewhere!
+我们正在取得一些进展！
 
-If you ever need to remove a sprite from the stage, use the `removeChild` method:
+如果你想从舞台中移除一个精灵，用 `removeChild` 方法：
 ```js
 stage.removeChild(anySprite)
 ```
-But usually setting a sprite’s `visible` property to `false` will be a simpler and more efficient way of making sprites disappear.
+但是通常设置精灵的 `visible` 属性为 `false` 是一个让精灵消失的高效而且简单方式。
 ```js
 anySprite.visible = false;
 ```
 <a id='usingaliases'></a>
-### Using aliases
+### 使用别名
 
-You can save yourself a little typing and make your code more readable
-by creating short-form aliases for the Pixi objects and methods that you
-use frequently. For example, is `PIXI.utils.TextureCache` too much to
-type? I think so, especially in a big project where you might use it
-it dozens of times. So, create a shorter alias that points to it, like
-this:
+你可以通过给Pixi对象和方法设置一个你经常用的简短的别名来使你的代码有更高的可读性。比如说， `PIXI.utils.TextureCache` 长不长？我认为长，特别是在一个大型项目你需要多次用到它。所以可以通过创建一个简短的别名指向它：
 ```js
 var TextureCache = PIXI.utils.TextureCache
 ```
-Then, use that alias in place of the original, like this:
+然后，用别名替换替换之前的位置：
 ```js
 var texture = TextureCache["images/cat.png"];
 ```
-In addition to letting you write more succinct code, using aliases has
-an extra benefit: it helps to buffer you slightly from Pixi's frequently
-changing API. If Pixi's API changes in future
-versions - which it will! - you just need to update these aliases to
-Pixi object and methods in one place, at the beginning of
-your program, instead of every instance where they're used throughout
-your code. So when Pixi's development team decides they want to
-rearrange the furniture a bit, you'll be one step ahead of them!
+除了让你能给更加简洁的代码，用别名还有一个好处：它有助于你缓存Pixi频繁变动的API。如果Pixi的API在将来的版本中改变了 - 一定会变！- 你仅仅需要在你的程序中更新你的别名，而不需要替换代码里所有的实例。所以当Pixi的开发团队决定重新调整的时候，你比他们还提前一步！
 
-To see how to do this, let's re-write the code we wrote to load an image and display it,
-using aliases for all the Pixi objects and methods.
+如何这么做，让我们重构刚才加载并展示图像的代码，给所有的Pixi对象和方法用别名。
 ```js
 //Aliases
 var Container = PIXI.Container,
@@ -524,12 +505,9 @@ function setup() {
 }
 
 ```
-Most of the examples in this tutorial will use aliases for Pixi
-objects that follow this same model. Unless otherwise stated, you can
-assume that all the code examples use aliases like these.
+本教程中的大部分例子都将遵从这个相同的范式来为Pixi设置别名。除非另有说明，你可以假设所有的例子代码都会像这样一样使用别名。
 
-This is all you need to know to start loading images and creating
-sprites.
+这就是你需要加载图像和创建精灵的全部东西。
 
 <a id='alittlemoreaboutloadingthings'></a>
 ### A little more about loading things
