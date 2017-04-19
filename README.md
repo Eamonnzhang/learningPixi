@@ -934,57 +934,46 @@ Pixi是兼容从一个非常受欢迎的工具叫做[Texture Packer](https://www
 现在你知道如何制作一个纹理图集了，然后让我们弄清楚如何在你的游戏代码中加载它。
 
 <a id='loadingatlas'></a>
-Loading the texture atlas
+加载纹理图集
 -------------------------
 
-To get the texture atlas into Pixi, load it using Pixi’s
-`loader`. If the JSON file was made with Texture Packer, the
-`loader` will interpret the data and create a texture from each
-frame on the tileset automatically.  Here’s how to use the `loader` to load the `treasureHunter.json`
-file. When it has loaded, the `setup` function will run.
+为了把纹理图集加入Pixi，用Pixi的 `loader` 加载它。如果你是用 Texture Packer 制作的JSON文件，`loader` 会自动在雪碧图上解释数据和创建纹理图。这里是如何用 `loader` 去加载 `treasureHunter.json`文件。当加载完成， `setup` 执行。
 ```js
 loader
   .add("images/treasureHunter.json")
   .load(setup);
 ```
-Each image on the tileset is now an individual texture in Pixi’s
-cache. You can access each texture in the cache with the same name it
-had in Texture Packer (“blob.png”, “dungeon.png”, “explorer.png”,
-etc.).
+现在每个雪碧图的每个文件在Pixi的缓存里都是一个单独的纹理了。你可以通过在 Texture Packer 设定的名字(“blob.png”, “dungeon.png”, “explorer.png”,等)来获取每一个纹理。
 
 <a id='creatingsprites'></a>
-Creating sprites from a loaded texture atlas
+从加载过的纹理图集创建精灵
 --------------------------------------------
 
-Pixi gives you three general ways to create a sprite from a texture atlas:
+Pixi给了你三种方式从加载过的纹理图集创建精灵：
 
-1.	Using `TextureCache`:
+1.  用 `TextureCache`:
 ```js
 var texture = TextureCache["frameId.png"],
     sprite = new Sprite(texture);
 ```
-2.	If you’ve used Pixi’s `loader` to load the texture atlas, use the 
-loader’s `resources`:
+2.  如果你用了Pixi的 `loader` 去加载纹理图集，用加载器的 `resources`：
 ```js
 var sprite = new Sprite(
   resources["images/treasureHunter.json"].textures["frameId.png"]
 );
 ```
-3. That’s way too much typing to do just to create a sprite! 
-So I suggest you create an alias called `id` that points to texture’s 
-altas’s `textures` object, like this:
+3. 用这种方式去创建精灵要码太多字了！
+所以我建议为纹理图集的 `textures` 对象取一个别名 `id` 指向它：
 ```js
 var id = PIXI.loader.resources["images/treasureHunter.json"].textures; 
 ```
-Then you can just create each new sprite like this:
+然后你可以像这样创建每一个精灵：
 ```js
 let sprite = new Sprite(id["frameId.png"]);
 ```
-Much better!
+好多了！
 
-Here's how you could use these three different sprite creation
-techniques in the `setup` function to create and display the
-`dungeon`, `explorer`, and `treasure` sprites.
+这里告诉你了如何在`setup` 函数中用三种不同的创建方式去展示`dungeon`, `explorer`, 和 `treasure` 精灵：
 ```js
 //Define variables that might be used in more 
 //than one function
@@ -1027,32 +1016,20 @@ function setup() {
   renderer.render(stage);
 }
 ```
-Here's what this code displays:
+这是这段代码执行后的显示效果:
 
 ![Explorer, dungeon and treasure](/examples/images/screenshots/13.png)
 
-The stage dimensions are 512 by 512 pixels, and you can see in the
-code above that the `stage.height` and `stage.width` properties are used
-to align the sprites. Here's how the `explorer`'s `y` position is
-vertically centered:
+舞台的尺寸是512x512像素，你可以在上面的代码中看到， `stage.height` 和 `stage.width`属性被用来定位精灵。探险者的y坐标如何被垂直居中：
 ```js
 explorer.y = stage.height / 2 - explorer.height / 2;
 ```
-Learning to create and display sprites using a texture atlas is an
-important benchmark. So before we continue, let's take a look at the
-code you
-could write to add the remaining
-sprites: the `blob`s and `exit` door, so that you can produce a scene
-that looks like this:
+学习如何用纹理图集去创建和展示精灵是一个重要的基准。在我们继续之前。让我们看一下如何把剩余的精灵：怪物和出口，添加进来，然后你会创建一个像这样的场景：
 
 ![All the texture atlas sprites](/examples/images/screenshots/14.png)
 
-Here's the entire code that does all this. I've also included the HTML
-code so you can see everything in its proper context.
-(You'll find this working code in the
-`examples/spriteFromTextureAtlas.html` file in this repository.)
-Notice that the `blob` sprites are created and added to the stage in a
-loop, and assigned random positions.
+这是做到上面效果的所有代码。我把HTML代码页添加进来了，所以你可以它的上下文中看到所有东西。
+（你会在这个仓库的`examples/spriteFromTextureAtlas.html`文件看到这个作品）注意怪物精灵是被循环创建和添加到舞台中的，并被赋予了随机的位置。
 ```js
 <!doctype html>
 <meta charset="utf-8">
@@ -1162,45 +1139,34 @@ function randomInt(min, max) {
 </script>
 </body>
 ```
-You can see in the code above that all the blobs are created using a
-`for` loop. Each `blob` is spaced evenly along the `x` axis like this:
+你会在上面的代码中看到所有的怪物都是通过for循环创建的。每个怪物在x轴上被均匀间隔开来：
 ```js
 var x = spacing * i + xOffset;
 blob.x = x;
 ```
-`spacing` has a value 48, and `xOffset` has a value of 150. What this
-means is the first `blob` will have an `x` position of 150.
-This offsets it from the left side of the stage by 150 pixel. Each
-subsequent `blob` will have an `x` value that's 48 pixels greater than
-the `blob` created in the previous iteration of the loop. This creates
-an evenly spaced line of blob monsters, from left to right, along the dungeon floor.
+`spacing` 的值为48，`xOffset` 的值为150，这意味着第一个怪物的x位置为150。这个偏移量是距离舞台左侧的150像素。每一个后来的怪物都会比前一个怪物多48像素。这就创建了一行从左到右，间隔均匀的怪物。
 
-Each `blob` is also given a random `y` position. Here's the code that
-does this:
+每个怪物被赋予了一个随机的y值：
 ```js
 var y = randomInt(0, stage.height - blob.height);
 blob.y = y;
 ```
-The `blob`'s `y` position could be assigned any random number between 0 and
-512, which is the value of `stage.height`. This works with the help of
-a custom function called `randomInt`. `randomInt` returns a random number
-that's within a range between any two numbers you supply.
+怪物的y值会被赋予一个0-512的随机值，不回超过`stage.height`的值。
+ `randomInt` 返回一个随机值：
 ```js
 randomInt(lowestNumber, highestNumber)
 ```
-That means if you want a random number between 1 and 10, you can get
-one like this:
+如果你想获取1-10的随机值：
 ```js
 var randomNumber = randomInt(1, 10);
 ```
-Here's the `randomInt` function definition that does all this work:
+这里是 `randomInt` 函数的实现方式：
 ```js
 function randomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 ```
-`randomInt` is a great little function to keep in your back pocket for
-making games - I use it all the time.
+`randomInt` 是一个很棒的小函数，我会一直使用它。
 
 <a id='movingsprites'></a>
 Moving Sprites
