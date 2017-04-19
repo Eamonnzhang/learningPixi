@@ -894,67 +894,26 @@ var rocket = new Sprite(texture);
 因为从雪碧图创建精灵纹理是一个你将经常做的事情，Pixi有更多的渐变的方法去帮助你做这些 - 接下来让我们弄清楚这些方法
 
 <a id='textureatlas'></a>
-Using a texture atlas
+使用纹理图集
 ---------------------
 
-If you’re working on a big, complex game, you’ll want a fast and
-efficient way to create sprites from tilesets. This is where a
-**texture atlas** becomes really useful. A texture atlas is a JSON
-data file that contains the positions and sizes of sub-images on a
-matching tileset PNG image. If you use a texture atlas, all you need
-to know about the sub-image you want to display is its name. You
-can arrange your tileset images in any order and the JSON file
-will keep track of their sizes and positions for you. This is
-really convenient because it means the sizes and positions of
-tileset images aren’t hard-coded into your game program. If you
-make changes to the tileset, like adding images, resizing them,
-or removing them, just re-publish the JSON file and your game will
-use that data to display the correct images. You won’t have to
-make any changes to your game code.
+如果你正在开发一个大型的、复杂的游戏，你需要一个快速高效的方式从雪碧图中制作精灵。所以**纹理图集**就变得非常有用了。一个纹理图集一个包含了雪碧图PNG文件所有子图的大小和位置的JSON文件。如果你用了纹理图集，展示子图你所需要全部知道的就是它的名字。你可以把你的雪碧图整理成任何次序，这个JSON文件会保持跟踪它们的位置和大小。这十分便捷，意味着雪碧图子图的大小和位置在你的游戏编程中将变得不再困难。如果你对雪碧图做了改变，比如添加图像，缩放它们，或者移动它们，只需要重新编译一个JSON文件，你的游戏会利用这些数据去展示正确的图像。你不需要把你游戏代码做任何改变。
 
-Pixi is compatible with a standard JSON texture atlas format that is
-output by a popular software tool called [Texture
-Packer](https://www.codeandweb.com/texturepacker). Texture Packer’s
-“Essential” license is free. Let’s find out how to use it to make a
-texture atlas, and load the atlas into Pixi. (You don’t have to use
-Texture Packer. Similar tools, like [Shoebox](http://renderhjs.net/shoebox/) or [spritesheet.js](https://github.com/krzysztof-o/spritesheet.js/), output PNG and JSON files
-in a standard format that is compatible with Pixi.)
+Pixi是兼容从一个非常受欢迎的工具叫做[Texture Packer](https://www.codeandweb.com/texturepacker)输出的标准的JSON纹理图集格式。Texture Packer 的 “Essential” 许可证是免费的。让我们弄清楚如何用它来制作一个纹理图集，然后把图集加载到Pixi。（你不需要必须用Texture Packer。相似的工具还有 [Shoebox](http://renderhjs.net/shoebox/) 或者 [spritesheet.js](https://github.com/krzysztof-o/spritesheet.js/)，输出的PNG和标准格式的JSON文件都是和Pixi兼容的。）
 
-First, start with a collection of individual image files that you'd
-like to use in your game.
+首先，从你需要在你游戏中使用的一系列单一图像开始。
 
-![Image files](/examples/images/screenshots/11.png)
+![图片文件](/examples/images/screenshots/11.png)
 
-(All the images in this section were created by Lanea Zimmerman. You
-can find more of her artwork
-[here](http://opengameart.org/users/sharm).
-Thanks, Lanea!)
+（在本章节的所有图片文件都是由 Lanea Zimmerman 创造的。你可以在[这儿](http://opengameart.org/users/sharm)找到更多关于它的作品，感谢Lanea！）
 
-Next, open Texture Packer and choose **JSON Hash** as the framework
-type. Drag your images into Texture Packer's workspace. (You can
-also point Texture Packer to any folder that contains your images.)
-It will automatically arrange the images on a single tileset image, and give them names that match their original image names.
+接下来，打开 Texture Packer 并选择 **JSON Hash** 作为框架类型。 把你的图片都拖拽到 Texture Packer 的工作区。（你也可以让 Texture Packer 指向游戏包含的文件夹。）它会自动在雪碧图上整理些子图，然后设定它们的名字为它们原始图片的名字。
 
-![Image files](/examples/images/screenshots/12.png)
+![图片文件](/examples/images/screenshots/12.png)
 
-(If you're using the free version of
-Texture Packer, set **Algorithm** to `Basic`, set **Trim mode** to
-`None`, set **Size constraints** to `Any size` and slide the **PNG Opt
-Level** all the way to the left to `0`. These are the basic
-settings that will allow the free version of Texture Packer to create
-your files without any warnings or errors.)
+（如果你正在使用免费版的Texture Packer，设置 **Algorithm** 为 `Basic`，设置 **Trim mode** 为 `None`，设置 **Size constraints** 为 `Any size` 然后滑动 **PNG Opt Level**到最左为 `0`。这是让你利用免费版的 Texture Packer 创建你的文件不会报错和警告的最基本的做法。 ）
 
-When you’re done, click the **Publish** button. Choose the file name and
-location, and save the published files. You’ll end up with 2 files: a
-PNG file and a JSON file. In this example my file names are
-`treasureHunter.json` and `treasureHunter.png`. To make your life easier,
-just keep both files in your project’s `images` folder. (You can think
-of the JSON file as extra metadata for the image file, so it makes
-sense to keep both files in the same folder.)
-The JSON file describes the name, size and position of each of the
-sub-images
-in the tileset. Here’s an excerpt that describes the blob monster
-sub-image.
+当你完成之后，点击 **Publish** 按钮。选择文件的名字的位置，然后保存发布文件。你将会得到两个文件：一个PNG文件和一个JSON文件。在这个例子中我的文件名字交`treasureHunter.json` 和 `treasureHunter.png`。方便起见，把他们都放在你项目的 `images` 文件夹中。（你可以认为JSON文件是图片文件的元数据，所以保持两个文件在同一个文件夹是有意义的。）这个JSON文件描述了每个子图的名字，尺寸和位置。这里是一个描述了怪物子图的摘要：
 ```js
 "blob.png":
 {
@@ -966,33 +925,13 @@ sub-image.
 	"pivot": {"x":0.5,"y":0.5}
 },
 ```
-The `treasureHunter.json` file also contains “dungeon.png”,
-“door.png”, "exit.png", and "explorer.png" properties each with
-similar data. Each of these sub-images are called **frames**. Having
-this data is really helpful because now you don’t need to know the
-size and position of each sub-image in the tileset. All you need to
-know is the sprite’s **frame id**. The frame id is just the name
-of the original image file, like "blob.png" or "explorer.png".
+ `treasureHunter.json` 文件也用同样的方式包含了 “dungeon.png”，“door.png”, "exit.png", 和 "explorer.png"。每一个子图被称为 **frames**。拥有这些数据是非常有帮助的，因为你不需要在知道雪碧图中每个子图的大小和位置了。所有你需要知道的就是精灵的 **frame id**。这个id就是元图片的名字，比如说 "blob.png" 或者 "explorer.png"。
 
-Among the many advantages to using a texture atlas is that you can
-easily add 2 pixels of padding around each image (Texture Packer does
-this by default.) This is important to prevent the possibility of
-**texture bleed**. Texture bleed is an effect that happens when the
-edge of an adjacent image on the tileset appears next to a sprite.
-This happens because of the way your computer's GPU (Graphics
-Processing Unit) decides how to round fractional pixels values. Should
-it round them up or down? This will be different for each GPU.
-Leaving 1 or 2 pixels spacing around images on a tilseset makes all
-images display consistently.
+使用纹理图集的优点之一是你可以轻松的为每个子图添加2像素的内边距（Texture Packer 默认这么做）这是防止**纹理流血**的重要做法。纹理流血的现象会在当相邻图像的边缘在另一个精灵图旁边是出现，它出现的原因是你的电脑的GPU（图像处理单元）如何去四舍五入像素值。是该舍弃还是改进入？每个GPU都可能不一样。所以在图片的周围保留1或者2两个像素当使图片显示一直显示正常。
 
-(Note: If you have two pixels of padding around a graphic, and you still notice a strange "off by one pixel" glitch in the
-way Pixi is displaying it, try changing the texture's scale mode
-algorithm. Here's how: `texture.baseTexture.scaleMode =
-PIXI.SCALE_MODES.NEAREST;`. These glitches can sometimes happen
-because of GPU floating point rounding errors.)
+（注意：如果你有在图片周围保留了两个像素的空白，在Pixi里展示的时候你需要注意一个奇怪的"一像素"差错，尝试改变纹理的尺度模式算法。这里是：`texture.baseTexture.scaleMode = PIXI.SCALE_MODES.NEAREST;`。这些差错会在GPU舍入浮点数误差时出现。）
 
-Now that you know how to create a texture atlas, let's find out how to
-load it into your game code.
+现在你知道如何制作一个纹理图集了，然后让我们弄清楚如何在你的游戏代码中加载它。
 
 <a id='loadingatlas'></a>
 Loading the texture atlas
