@@ -1614,85 +1614,54 @@ animals.height = 200;
 如果你喜欢，你可以在一个 `Container` 里嵌套许多其他`Container`，如果你需要可以创建一个更深的层次。然而，一个 `DisplayObject` （像 `Sprite` 或者其他 `Container`）只能一次属于一个父级。如果你用 `addChild` 让一个精灵成为其他精灵的孩子。Pixi会自动移除它当前的父级，这是一个你不用担心的有用的管理方式。
 
 <a id='localnglobal'></a>
-### Local and global positions
+### 局部和全局位置
 
-When you add a sprite to a `Container`, its `x` and `y`
-position is *relative to the group’s top left corner*. That's the
-sprite's **local position** For example, what do you think the cat's
-position is in this image?
+当你往一个容器添加一个精灵时，它的 `x` 和 `y` 的位置是*相对于分组的左上角*。这是精灵的**局部位置**，举个例子，你认为这个猫在这张图的哪个位置？
 
 ![Grouping sprites](/examples/images/screenshots/20.png)
 
-Let's find out:
+让我们看看：
 ```
 console.log(cat.x);
 //Displays: 16
 ```
-16? Yes! That's because the cat is offset by only 16 pixel's from the
-group's top left corner. 16 is the cat's local position.
+16？是的！这因为猫的只往分组的左上角偏移了16个像素。16是猫的局部位置。
 
-Sprites also have a **global position**. The global position is the
-distance from the top left corner of the stage, to the sprite's anchor
-point (usually the sprite's top left corner.) You can find a sprite's global
-position with the help of the `toGlobal` method.  Here's how:
+精灵图还有**全局位置**。全局位置是舞台左上角到精灵锚点（通常是精灵的左上角）的距离。你可以通过 `toGlobal` 方法的帮助找到精灵图的全局位置：
 ```
 parentSprite.toGlobal(childSprite.position)
 ```
-That means you can find the cat's global position inside the `animals`
-group like this:
+这意味着你能在 `animals`分组里找到猫的全局位置：
 ```
 console.log(animals.toGlobal(cat.position));
 //Displays: Object {x: 80, y: 80...};
 ```
-That gives you an `x` and `y` position of 80. That's exactly the cat's
-global position relative to the top left corner of the stage. 
+上面给你返回了 `x` 和 `y` 的值为80。这正是猫相对于舞台左上角的相对位置。
 
-What if you want to find the global position of a sprite, but don't
-know what the sprite's parent container
-is? Every sprite has a property called `parent` that will tell you what the
-sprite's parent is. If you add a sprite directly to the `stage`, then
-`stage` will be the sprite's parent. In the example above, the `cat`'s
-parent is `animals`. That means you can alternatively get the cat's global position
-by writing code like this:
+如果你想知道一个精灵的全局位置，但是不知道精灵的父容器怎么办？每个精灵图有一个属性叫`parent` 能告诉你精灵的父级是什么。在上面的例子中，猫的父级是 `animals`。这意味着你可以像如下代码一样额外的得到猫的全局位置：
 ```
 cat.parent.toGlobal(cat.position);
 ```
-And it will work even if you don't know what the cat's parent
-container currently is.
+即使你不知道猫的当前父级是谁，上面的代码依然能够正确工作。
 
-There's one more way to calculate the global position! And, it's
-actually the best way, so heads up! If you want to know the distance
-from the top left corner of the canvas to the sprite, and don't know
-or care what the sprite's parent containers are, use the
-`getGlobalPosition` method. Here's how to use it to find the tiger's global position:
+这还有一种方式能够计算出全局位置！而且，它实际上最好的方式，所以当心！如果你想知道精灵到canvas左上角的距离，但是不知道或者不关心精灵的父亲是谁，用 `getGlobalPosition` 方法。这里展示如何用它来找到老虎的全局位置：
 ```js
 tiger.getGlobalPosition().x
 tiger.getGlobalPosition().y
 ```
-This will give you `x` and `y` values of 128 in the example that we've
-been using.
-The special thing about `getGlobalPosition` is that it's highly
-precise: it will give you the sprite's accurate global position as
-soon as its local position changes. I asked the Pixi development team
-to add this feature specifically for accurate collision detection for
-games.
+它会给你返回 `x` 和 `y` 的值为128.
+一个关于 `getGlobalPosition` 特殊的事情是它是高精度的：当精灵的局部位置改变的同时，它会返回给你精确的全局位置。我曾要求Pixi开发团队添加这个特殊的特性，以便于开发精确的碰撞检测游戏。
 
-What if you want to convert a global position to a local position? you
-can use the `toLocal` method. It works in a similar way, but uses this
-general format:
+如果你想转换全局位置为局部位置怎么办？你可以用 `toLocal` 方法。它的工作方式类似，但是通常是这种通用的格式：
 ```js
 sprite.toLocal(sprite.position, anyOtherSprite)
 ```
-Use `toLocal` to find the distance between a sprite and any other
-sprite. Here's how you could find out the tiger's local
-position, relative to the hedgehog.
+用 `toLocal` 找到一个精灵和其他任何一个精灵之间的距离。这段代码告诉你如何获取老虎的相对于猫头鹰的局部位置。
 ```js
 tiger.toLocal(tiger.position, hedgehog).x
 tiger.toLocal(tiger.position, hedgehog).y
 ```
-This gives you an `x` value of 32 and a `y` value of 32. You can see
-in the example images that the tiger's top left corner is 32 pixels
-down and to the left of the hedgehog's top left corner.
+上面的代码会返回给你一个32的x值和一个32的y值。你可以在例子中看到老虎的左上角和猫头鹰的左上角距离32像素。
 
 <a id='spritebatch'></a>
 ### Using a ParticleContainer to group sprites
