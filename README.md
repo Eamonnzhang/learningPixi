@@ -1169,15 +1169,11 @@ function randomInt(min, max) {
 `randomInt` 是一个很棒的小函数，我会一直使用它。
 
 <a id='movingsprites'></a>
-Moving Sprites
+移动精灵
 --------------
 
-You now know how to display sprites, but how do you make them move?
-That's easy: create a looping function using `requestAnimationFrame`.
-This is called a **game loop**.
-Any code you put inside the game loop will update 60 times per
-second. Here's some code you could write to make the `cat` sprite move
-at a rate  of 1 pixel per frame.
+现在你知道了如何展示精灵，但是让它们动起来呢？很简单：用 `requestAnimationFrame` 创建一个循环函数。这被称为 **游戏循环**。
+任何在游戏游戏循环的代码都会1s更新60次。你可以用这写代码让 `cat` 精灵用每帧1像素的速率移动。
 ```js
 function gameLoop() {
 
@@ -1194,17 +1190,11 @@ function gameLoop() {
 //Start the game loop
 gameLoop();
 ```
-If you run this bit of code, you'll see the sprite gradually move to
-the right side of the stage.
+如果你运行了上面的代码，你会看到精灵逐步的移动到舞台的一边。
 
 ![Moving sprites](/examples/images/screenshots/15.png)
 
-And that's really all there is to it! Just change any sprite property by small
-increments inside the loop, and they'll animate over time. If you want
-the sprite to animate in the opposite direction (to the left), just give it a
-negative value, like `-1`.
-You'll find this code in the `movingSprites.html` file - here's the
-complete code:
+这就是移动的全部。只要在循环中改变一小点的增加精灵的属性，它们就会随着时间动画。如果你想让它往相反的方向移动，只要给它一个负值，像 `-1`。你能在 `movingSprites.html` 文件中找到这段代码 - 这是全部的代码：
 ```js
 //Aliases
 var Container = PIXI.Container,
@@ -1249,12 +1239,9 @@ function gameLoop(){
   renderer.render(stage);
 }
 ```
-(Notice that the `cat` variable needs to be defined outside the
-`setup` and
-`gameLoop` functions so that you can access it inside both of them.)
+（注意 `cat` 变量需要在`setup` 和 `gameLoop`函数之外定义，然后你可以在里面都能获取到它们）
 
-You can animate a sprite's scale, rotation, or size - whatever! You'll see
-many more examples of how to animate sprites ahead.
+你可以动画精灵的尺寸，旋转或者尺寸 - 任何都可以！你会在下面看到更多动画精灵的例子。
 
 <a id='velocity'></a>
 Using velocity properties
