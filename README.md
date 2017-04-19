@@ -1899,18 +1899,14 @@ message.style = {wordWrap: true, wordWrapWidth: 100, align: center};
 [Pixi也支持点阵字体](http://pixijs.download/release/docs/PIXI.extras.BitmapText.html)。你可以用Pixi的加载器加载点阵字体XML文件，跟你加载JSON和图片文件是一样的。
 
 <a id='collision'></a>
-Collision detection
+碰撞检测
 --------------------------
 
-You now know how to make a huge variety of graphics objects, but what
-can you do with them? A fun thing to do is to build a simple **collision
-detection** system. You can use a custom function called
-`hitTestRectangle` that checks whether any two rectangular Pixi sprites are
-touching.
+现在你知道了如何制造种类繁多的图形对象，但是你能用他们做什么？一个有趣的事情是利用它制作一个简单的**碰撞检测**系统。你可以用自定义的函数叫做：`hitTestRectangle` 用来检测两个矩形精灵是否接触。
 ```js
 hitTestRectangle(spriteOne, spriteTwo)
 ```
-if they overlap, `hitTestRectangle` will return `true`. You can use `hitTestRectangle` with an `if` statement to check for a collision between two sprites like this:
+如果它们重叠， `hitTestRectangle` 会返回 `true`。你可以用 `hitTestRectangle` 结合 `if` 条件语句去检测两个精灵是否碰撞：
 ```js
 if (hitTestRectangle(cat, box)) {
   //There's a collision
@@ -1918,20 +1914,13 @@ if (hitTestRectangle(cat, box)) {
   //There's no collision
 }
 ```
-As you'll see, `hitTestRectangle` is the front door into the vast universe of game design.
+正如你所看到的， `hitTestRectangle` 是走入游戏设计这片宇宙的大门。
 
-Run the `collisionDetection.html` file in the `examples` folder for a
-working example of how to use `hitTestRectangle`. Use the arrow keys
-to move the cat. If the cat hits the box, the box becomes red
-and "Hit!" is displayed by the text object.
+运行在 `examples` 文件夹的 `collisionDetection.html` 文件，看看怎么用 `hitTestRectangle`工作。用方向按键去移动猫，如果猫碰到了盒子，盒子会变成红色，然后 "Hit!" 文字对象会显示出来。
 
 ![Displaying text](/examples/images/screenshots/25.png)
 
-You've already seen all the code that creates all these elements, as
-well as the
-keyboard control system that makes the cat move. The only new thing is the
-way `hitTestRectangle` is used inside the `play` function to check for a
-collision.
+你已经看到了创建这些所有节点的代码，包括键盘控制系统可以使猫移动。唯一的新的东西就是 `hitTestRectangle` 函数被用在 `play` 函数里用来检测碰撞。
 ```js
 function play() {
 
@@ -1956,88 +1945,82 @@ function play() {
   }
 }
 ```
-Because the `play` function is being called by the game loop 60 times
-per second, this `if` statement is constantly checking for a collision
-between the cat and the box. If `hitTestRectangle` is `true`, the
-text `message` object uses `setText` to display "Hit":
+因为 `play` 函数被每秒调用了60次，这个 `if` 条件语句持续的在猫和盒子之间进行碰撞检测，如果 `hitTestRectangle` 为 `true`，这个文字 `message` 对象用 `setText` 去显示 "Hit"：
 ```js
 message.text = "hit!";
 ```
-The color of the box is then changed from green to red by setting the
-box's `tint` property to the hexadecimal red value.
+这个盒子的颜色通过设置盒子的 `tint` 属性一个16进制的红色的值，把盒子从绿色变为红色。
 ```js
 box.tint = 0xff3300;
 ```
-If there's no collision, the message and box are maintained in their
-original states:
+如果没有碰撞，消息和盒子会保持它们的原始状态。
 ```js
 message.text = "no collision...";
 box.tint = 0xccff99;
 ```
-This code is pretty simple, but suddenly you've created an interactive
-world that seems to be completely alive. It's almost like magic! And, perhaps
-surprisingly, you now have all the skills you need to start making
-games with Pixi!
+代码很简单，但是你突然创造了一个看起来完全活着的互动的世界！它简直跟魔术一样！也许令人惊讶的是，你现在已经拥有了你需要用Pixi制作游戏的全部技能！
 
 <a id='hittest'></a>
-### The hitTestRectangle function
+### hitTestRectangle函数
 
-But what about the `hitTestRectangle` function? What does it do, and
-how does it work? The details of how collision detection algorithms
-like this work is a little bit outside the scope of this tutorial.
-The most important thing is that you know how to use it. But, just for
-your reference, and in case you're curious, here's the complete
-`hitTestRectangle` function definition. Can you figure out from the
-comments what it's doing?
+ `hitTestRectangle` 函数都有些什么呢？它做了什么，还有它是如何工作的？关于碰撞检测算法的细节有点儿超出了本教程的范围。最重要的事情是你知道如何使用它。但是，只是作为你的参考资料，防止你好奇，这里有全部的 `hitTestRectangle` 函数的定义。你能从注释弄明白它都做了什么吗？
 ```js
 function hitTestRectangle(r1, r2) {
 
   //Define the variables we'll need to calculate
+  //定义我们需要计算的变量
   var hit, combinedHalfWidths, combinedHalfHeights, vx, vy;
 
   //hit will determine whether there's a collision
+  //hit决定是否有碰撞
   hit = false;
 
   //Find the center points of each sprite
+  //找到每个精灵的中心点
   r1.centerX = r1.x + r1.width / 2;
   r1.centerY = r1.y + r1.height / 2;
   r2.centerX = r2.x + r2.width / 2;
   r2.centerY = r2.y + r2.height / 2;
 
   //Find the half-widths and half-heights of each sprite
+  //找到每个精灵的一半宽度和一半高度
   r1.halfWidth = r1.width / 2;
   r1.halfHeight = r1.height / 2;
   r2.halfWidth = r2.width / 2;
   r2.halfHeight = r2.height / 2;
 
   //Calculate the distance vector between the sprites
+  //计算精灵之间的向量距离
   vx = r1.centerX - r2.centerX;
   vy = r1.centerY - r2.centerY;
 
   //Figure out the combined half-widths and half-heights
+  //计算出两个精灵的的一半宽度和一半高度的和
   combinedHalfWidths = r1.halfWidth + r2.halfWidth;
   combinedHalfHeights = r1.halfHeight + r2.halfHeight;
 
   //Check for a collision on the x axis
+  //检测x轴的碰撞
   if (Math.abs(vx) < combinedHalfWidths) {
 
     //A collision might be occuring. Check for a collision on the y axis
+    //碰撞可能发生，检查y轴碰撞
     if (Math.abs(vy) < combinedHalfHeights) {
 
-      //There's definitely a collision happening
+      //确实有碰撞发生
       hit = true;
     } else {
 
-      //There's no collision on the y axis
+      //在y轴没有碰撞
       hit = false;
     }
   } else {
 
-    //There's no collision on the x axis
+    //在x轴没有碰撞
     hit = false;
   }
 
-  //`hit` will be either `true` or `false`
+  //`hit` 返回 `true` 或者 `false`
   return hit;
 };
 
