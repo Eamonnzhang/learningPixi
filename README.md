@@ -1529,16 +1529,12 @@ function play() {
 }
 ```
 <a id='grouping'></a>
-Grouping Sprites
+给精灵分组
 ----------------
 
-Groups let you create game scenes, and manage similar sprites together
-as single units. Pixi has an object called a `Container`
-that lets you do this. Let's find out how it works.
+分组让你能够让你创建游戏场景，并且像一个单一单元那样管理相似的精灵图。Pixi有一个对象叫 `Container`，可以让你做这些。让我们弄清楚它是怎么工作的。
 
-Imagine that you want to display three sprites: a cat, hedgehog and
-tiger. Create them, and set their positions - *but don't add them to the
-stage*.
+想象一下你想展示三个精灵：一只猫，一只刺猬和一只老虎。创建它们，然后设置它们的位置 - *但是不要把它们添加到舞台上*
 ```js
 //The cat
 var cat = new Sprite(id["cat.png"]);
@@ -1553,64 +1549,49 @@ var tiger = new Sprite(id["tiger.png"]);
 tiger.position.set(64, 64);
 ```
 
-Next, create an `animals` container to group them all together like
-this:
+让后创建一个 `animals` 容器像这样去把他们聚合在一起：
 ```js
 var animals = new Container();
 ```
-Then use `addChild` to *add the sprites to the group*.
+然后用 `addChild` 去*把精灵图添加到分组中*。
 ```js
 animals.addChild(cat);
 animals.addChild(hedgehog);
 animals.addChild(tiger);
 ```
-Finally add the group to the stage.
+最后把分组添加到舞台上。
 ```js
 stage.addChild(animals);
 renderer.render(stage);
 ```
-(As you know, the `stage` object is also a `Container`. It’s the root
-container for all Pixi sprites.)
+（正如你所知道的， `stage` 对象也是一个 `Container`。它是所有Pixi精灵的根容器。）
 
-Here's what this code produces:
+这就是上面代码产生的效果：
 
 ![Grouping sprites](/examples/images/screenshots/18.png)
 
-What you can't see in that image is the invisible `animals` group
-that's containing the sprites.
+你是看不到这个包含精灵图的 `animals` 分组的。
 
 ![Grouping sprites](/examples/images/screenshots/19.png)
 
-You can now treat the `animals` group as a single unit. You can think
-of a `Container` as a special kind of sprite that doesn’t
-have a texture.
+不过你现在可以像对待一个单一单元一样对待 `animals` 分组。你可以把 `Container` 当作是一个特殊类型的不包含任何纹理的精灵。
 
-If you need a list of all the child sprites that `animals` contains,
-use its `children` array to find out.
+如果你需要获取`animals` 包含的所有子精灵，你可以用它的 `children` 数组获取。
 ```
 console.log(animals.children)
 //Displays: Array [Object, Object, Object]
 ```
-This tells you that `animals` has three sprites as children.
+这告诉你 `animals` 有三个精灵孩子。
 
-Because the `animals` group is just like any other sprite, you can
-change its `x` and `y` values, `alpha`, `scale` and
-all the other sprite properties. Any property value you change on the
-parent container will affect the child sprites in a relative way. So if you
-set the group's `x` and `y` position, all the child sprites will
-be repositioned relative to the group's top left corner. What would
-happen if you set the `animals`'s `x` and `y` position to 64?
+因为 `animals` 分组跟其他精灵一样，你可以改变它的 `x` 和 `y` 的值，`alpha`, `scale`和其他精灵的属性。任何你改变父容器的属性值，都会相对的改变它的孩子精灵。所以如果你设置分组的 `x` 和 `y` 的位置，所有的孩子精灵都会相对于分组的左上角重新定位。如果你设置了 `animals`的 `x` 和 `y` 的位置为64会发生什么呢？
 ```
 animals.position.set(64, 64);
 ```
-The whole group of sprites will move 64 pixels right and 64 pixels to
-the down.
+整个分组的精灵都会向右和向下移动64像素。
 
 ![Grouping sprites](/examples/images/screenshots/20.png)
 
-The `animals` group also has its own dimensions, which is based on the area
-occupied by the containing sprites. You can find its `width` and
-`height` values like this:
+ `animals` 分组也有它自己的尺寸，它是以包含的精灵所占的区域计算出来的。你可以通过下面的方式来获取`width` 和 `height`的值：
 ```js
 console.log(animals.width);
 //Displays: 112
@@ -1621,23 +1602,16 @@ console.log(animals.height);
 ```
 ![Group width and height](/examples/images/screenshots/21.png)
 
-What happens if you change a group's width or height?
+如果你改变了分组的宽和高会发生什么呢？
 ```js
 animals.width = 200;
 animals.height = 200;
 ```
-All the child
-sprites will scale to match that change.
+所有的孩子精灵都会缩放到刚才你设定的那个值。
 
 ![Group width and height](/examples/images/screenshots/22.png)
 
-You can nest as many `Container`s inside other
-`Container`s as you like, to create deep hierarchies if
-you need to. However, a `DisplayObject` (like a `Sprite` or another
-`Container`) can only belong to one parent at a time. If
-you use `addChild` to make a sprite the child of another object, Pixi
-will automatically remove it from its current parent. That’s a useful
-bit of management that you don’t have to worry about.
+如果你喜欢，你可以在一个 `Container` 里嵌套许多其他`Container`，如果你需要可以创建一个更深的层次。然而，一个 `DisplayObject` （像 `Sprite` 或者其他 `Container`）只能一次属于一个父级。如果你用 `addChild` 让一个精灵成为其他精灵的孩子。Pixi会自动移除它当前的父级，这是一个你不用担心的有用的管理方式。
 
 <a id='localnglobal'></a>
 ### Local and global positions
