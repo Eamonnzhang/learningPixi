@@ -1664,51 +1664,25 @@ tiger.toLocal(tiger.position, hedgehog).y
 上面的代码会返回给你一个32的x值和一个32的y值。你可以在例子中看到老虎的左上角和猫头鹰的左上角距离32像素。
 
 <a id='spritebatch'></a>
-### Using a ParticleContainer to group sprites
+### 使用 ParticleContainer 去分组精灵
 
-Pixi has an alternative, high-performance way to group sprites called
-a `ParticleContainer` (`PIXI.ParticleContainer`). Any sprites inside a
-`ParticleContainer` will render 2 to 5
-times faster than they would if they were in a regular
-`Container`. It’s a great performance boost for games.
+Pixi有一个额外的，高性能的方式去分组精灵叫：`ParticleContainer`（`PIXI.ParticleContainer`）。任何在`ParticleContainer` 里的精灵都会比在一个普通的`Container`的渲染速度快2到5倍。这是用于提升游戏的一个很棒的性能。
 
-Create a `ParticleContainer` like this:
+可以像这样创建 `ParticleContainer` ：
 ```js
 var superFastSprites = new ParticleContainer();
 ```
-Then use `addChild` to add sprites to it, just like you would with any
-ordinary `Container`.
+然后用 `addChild` 去往里添加精灵，就像往普通的 `Container`添加一样。
 
-You have to make some compromises if you decide to use a
-`ParticleContainer`. Sprites inside a `ParticleContainer` only have a few  basic properties:
-`x`, `y`, `width`, `height`, `scale`, `pivot`, `alpha`, `visible` – and that’s
-about it. Also, the sprites that it contains can’t have nested
-children of their own. A `ParticleContainer` also can’t use Pixi’s advanced
-visual effects like filters and blend modes. Each `ParticleContainer` can use only one texture (so you'll have to use a spritesheet if you want Sprites with different appearances). But for the huge performance boost that you get, those
-compromises are usually worth it. And you can use
-`Container`s and `ParticleContainer`s simultaneously in the same project, so you can fine-tune your optimization.
+如果你决定用`ParticleContainer`你必须做出一些妥协。在 `ParticleContainer` 里的精灵图只有一小部分基本属性：`x`, `y`, `width`, `height`, `scale`, `pivot`, `alpha`, `visible` - 就这么多。而且，它包含的精灵不能在嵌套自己的孩子精灵。 `ParticleContainer` 也不能用Pixi的先进的视觉效果像过滤器和混合模式。每个 `ParticleContainer` 只能用一个纹理（所以你不得不一个雪碧图如果你想让精灵有不同的表现方式）。但是为了得到巨大的性能提升，这些妥协通常是值得的。你可以在同一个项目中同时用 `Container` 和 `ParticleContainer`，然后微调一下你自己的优化。
 
-Why are sprites in a `Particle Container` so fast? Because the positions of
-the sprites are being calculated directly on the GPU. The Pixi
-development team is working to offload as much sprite processing as
-possible on the GPU, so it’s likely that the latest version of Pixi
-that you’re using will have much more feature-rich `ParticleContainer` than
-what I've described here. Check the current [`ParticleContainer`
-documentation](http://pixijs.download/release/docs/PIXI.particles.ParticleContainer.html) for details.
+为什么在 `Particle Container` 的精灵图这么快呢？因为精灵的位置是直接在GPU上计算的。Pixi开发团队正在努力让尽可能多的雪碧图在GPU上处理，所以很有可能你用的最新版的Pixi的 `ParticleContainer` 的特性一定比我现在在这儿描述的特性多得多。查看当前[`ParticleContainer` 文档](http://pixijs.download/release/docs/PIXI.particles.ParticleContainer.html)以获取更多信息。
 
-Where you create a `ParticleContainer`, there are two optional
-arguments you can provide: the maximum number of sprites the container
-can hold, and an options object.
+当你创建一个 `ParticleContainer`，有两个参数可以传递，这个容器可以包裹的最大数量的精灵以及其他可配置对象。
 ```js
 var superFastSprites = new ParticleContainer(size, options);
 ```
-The default value for size is 15,000. So, if you need to contain more
-sprites, set it to a higher number. The options argument is an object
-with 5 Boolean values you can set: `scale`, `position`, `rotation`, `uvs` and
-`alpha`. The default value of `position` is `true`, but all the others
-are set to `false`. That means that if you want change the `rotation`,
-`scale`, `alpha`, or `uvs` of sprite in the `ParticleContainer`, you
-have to set those properties to `true`, like this:
+默认的尺寸是 15,000。所以，如果你需要包裹更多的精灵，把它设置为更高的数字。配置参数是一个拥有五个布尔值的对象：`scale`, `position`, `rotation`, `uvs` 和 `alpha`。默认的值是 `position` 为 `true`，其他都为 `false`。这意味着如果你想在 `ParticleContainer` 改变精灵的`rotation`, `scale`, `alpha`, 或者 `uvs`，你得先把这些属性设置为 `true`，像这样：
 ```js
 var superFastSprites = new ParticleContainer(
   size, 
@@ -1720,19 +1694,11 @@ var superFastSprites = new ParticleContainer(
   }
 );
 ```
-But, if you don't think you'll need to use these properties, keep them
-set to `false` to squeeze out the maximum amount of performance.
+但是，如果你感觉你不会用这些属性，就保持它们为 `false` 以挤出更大的性能。
 
-What's the `uvs` option? Only set it to `true` if you have particles
-which change their textures while they're being animated. (All the
-sprite's textures will also need to be on the same tileset image for
-this to work.) 
+ `uvs` 是什么鬼？只有你有当它们在动画的时候改变它们纹理的颗粒的时候需要设置为 `true` 。（想让它工作，所有的精灵纹理需要在同一张雪碧图上。）
 
-(Note: **UV mapping** is a 3D graphics display term that refers to
-the `x` and `y` coordinates of the texture (the image) that is being
-mapped onto a 3D surface. `U` is the `x` axis and `V` is the `y` axis.
-WebGL already uses `x`, `y` and `z` for 3D spatial positioning, so `U`
-and `V` were chosen to represent `x` and `y` for 2D image textures.)
+（注意：**UV mapping**是一个3D图表展示术语，它指纹理（图片）准备映射到三维表面的x和y的坐标。`U` 是 `x` 轴， `V` 是 `y` 轴。WebGL用 `x`, `y` 和 `z` 来进行三维空间定位，所以 `U` 和 `V` 被选为表示2D图片纹理的 `x` 和 `y` 。）
 
 <a id='graphic'></a>
 Pixi's Graphic Primitives
