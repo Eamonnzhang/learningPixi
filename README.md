@@ -1371,16 +1371,14 @@ function play() {
   cat.x += cat.vx;
 }
 ```
-是的我知道这有点儿[head-swirler？](http://www.amazon.com/Electric-Psychedelic-Sitar-Headswirlers-1-5/dp/B004HZ14VS)！但是，不要害怕，花几分钟在脑海中过一边这些函数是如何联系在一起的。正如你在将在前面看到的，结构化你的游戏循环代码，会使像切换游戏场景和关卡更简单。
+是的我知道这有点儿[head-swirler？](http://www.amazon.com/Electric-Psychedelic-Sitar-Headswirlers-1-5/dp/B004HZ14VS)！但是，不要害怕，花几分钟在脑海中过一遍这些函数是如何联系在一起的。正如你在将在前面看到的，结构化你的游戏循环代码，会使像切换游戏场景和关卡更简单。
 
 <a id='keyboard'></a>
-Keyboard Movement
+键盘移动
 -----------------
 
-With just a little more work you can build a simple system to control
-a sprite using the keyboard. To simplify your code, I suggest you use
-this custom function called `keyboard` that listens for and captures
-keyboard events.
+只需再做一小点工作，你就可以建立一个通过鼠标控制精灵移动的简单系统。为了简化你的代码，我建议你用一个名为 `keyboard` 的自定义函数来监听和捕捉键盘事件。
+
 ```js
 function keyboard(keyCode) {
   var key = {};
@@ -1419,16 +1417,14 @@ function keyboard(keyCode) {
   return key;
 }
 ```
-The `keyboard` function is easy to use. Create a new keyboard object like this:
+ `keyboard` 函数很容易使用，可以像这样创建一个新的键盘对象：
 ```js
 var keyObject = keyboard(asciiKeyCodeNumber);
 ```
-It's one argument is the ASCII key code number of the keyboad key that you
-want to listen for.
-[Here's a list of ASCII keyboard code
-numbers](http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00000520.html).
+这个函数只接受一个参数就是键盘对应的ASCII键值数，也就是你想监听的键盘按键。
+[这是键盘键ASSII值列表](http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00000520.html).
 
-Then assign `press` and `release` methods to the keyboard object like this:
+然后给键盘对象赋值 `press` 和 `release` 方法：
 ```js
 keyObject.press = function() {
   //key object pressed
@@ -1437,18 +1433,13 @@ keyObject.release = function() {
   //key object released
 };
 ```
-Keyboard objects also have `isDown` and `isUp` Boolean properties that
-you can use to check the state of each key.
+键盘对象也有 `isDown` 和 `isUp` 布尔值属性，你可以用它们来检查每个按键的状态。
 
-Take a look at the
-`keyboardMovement.html` file in the `examples` folder to see how you
-can use this `keyboard` function to control a sprite using your
-keyboard's arrow keys. Run it and use the left, up, down, and right
-arrow keys to move the cat around the stage.
+在 `examples` 文件夹里看一下`keyboardMovement.html` 文件你如何用 `keyboard` 函数，利用键盘的方向键去控制精灵图。运行它，然后用上下左右按键去让猫在舞台上移动。
 
 ![Keyboard movement](/examples/images/screenshots/17.png)
 
-Here's the code that does all this:
+这里是代码：
 ```js
 function setup() {
 
