@@ -827,43 +827,26 @@ cat.pivot.set(32, 32)
 `pivot`通过设置像素值来改变精灵的x和y的原点值。
 
 <a id='tileset'></a>
-Make a sprite from a tileset sub-image
+用雪碧图的子图像制作精灵
 --------------------------------------
 
-You now know how to make a sprite from a single image file. But, as a
-game designer, you’ll usually be making your sprites using
-**tilesets** (also known as **spritesheets**.) Pixi has some convenient built-in ways to help you do this.
-A tileset is a single image file that contains sub-images. The sub-images
-represent all the graphics you want to use in your game. Here's an
-example of a tileset image that contains game characters and game
-objects as sub-images.
+你现在知道了如何用一个单一的图像文件制作精灵。但是，作为一个游戏设计者，你通常会把你的精灵图制作成**图集**（也叫**雪碧图**。）Pixi有一些内置的简便的方式帮助你做到这些。一个雪碧图是包含了很多子图的一个单一图片文件。子图是你在游戏中准备用到的所有图片。这里有一个雪碧图的例子，它包含了游戏角色和游戏对象作为子图。
 
-![An example tileset](/examples/images/screenshots/09.png)
+![一个雪碧图的例子](/examples/images/screenshots/09.png)
 
-The entire tileset is 192 by 192 pixels. Each image is in a its own 32 by 32
-pixel grid cell. Storing and accessing all your game graphics on a
-tileset is a very
-processor and memory efficient way to work with graphics, and Pixi is
-optimized for them.
+整张雪碧图的大小是192x192。每个图片都在它自己的32x32的网格中。把你的所有游戏图像保存到雪碧图中并从中获取是一种能让让处理器和内存高效率处理图像的方式。Pixi也给它做了优化。
 
-You can capture a sub-image from a tileset by defining a rectangular
-area
-that's the same size and position as the sub-image you want to
-extract. Here's an example of the rocket sub-image that’s been extracted from
-the tileset.
+你可以通过定义一个和子图相同大小和位置的矩形区域来捕捉你想提取的子图。这里有一个从雪碧图中提取火箭子图的例子：
 
-![Rocket extracted from tileset](/examples/images/screenshots/10.png)
+![从雪碧图中提取的火箭](/examples/images/screenshots/10.png)
 
-Let's look at the code that does this. First, load the `tileset.png` image
-with Pixi’s `loader`, just as you've done in earlier examples.
+让我们看看这段代码，首先通过Pixi `loader` 的加载 `tileset.png` 图片，就像在之前的例子你做的那样：
 ```js
 loader
   .add("images/tileset.png")
   .load(setup);
 ```
-Next, when the image has loaded, use a rectangular sub-section of the tileset to create the
-sprite’s image. Here's the code that extracts the sub image, creates
-the rocket sprite, and positions and displays it on the canvas.
+接下来，当图片加载完成，用一个雪碧图的矩形项去创造一个精灵图片。这里的代码就展示如何提取子图，创建火箭图像，并且定位并在canvas中展示它。
 ```js
 function setup() {
 
@@ -891,36 +874,24 @@ function setup() {
   renderer.render(stage);
 }
 ```
-How does this work?
+这是怎么工作的？
 
-Pixi has a built-in `Rectangle` object (PIXI.Rectangle) that is a general-purpose
-object for defining rectangular shapes. It takes four arguments. The
-first two arguments define the rectangle's `x` and `y` position. The
-last two define its `width` and `height`. Here's the format
-for defining a new `Rectangle` object.
+Pixi有一个内置的 `Rectangle` 对象（PIXI.Rectangle）是一个通用的定义矩形形状的对象。它接收四个参数。前两个参数定义了矩形的x和y的位置。后两个定义了它的宽和高。这里格式化定义了一个新的 `Rectangle` 对象。
 ```js
 var rectangle = new PIXI.Rectangle(x, y, width, height);
 ```
-The rectangle object is just a *data object*; it's up to you to decide how you want to use it. In
-our example we're using it to define the position and area of the
-sub-image on the tileset that we want to extract. Pixi textures have a useful
-property called `frame` that can be set to any `Rectangle` objects. 
-The `frame` crops the texture to the dimensions of the `Rectangle`.
-Here's how to use `frame`
-to crop the texture to the size and position of the rocket.
+矩形对象只是一个*数据对象*；你想怎么使用取决于你。在我们的例子中，我们使用它定义了在雪碧图的一个位置和区域去提取我们想要的子图。Pixi纹理有一个非常有用的属性叫： `frame` ，它能被设置为任何 `Rectangle` 对象。`frame` 通过 `Rectangle`所标尺寸来裁剪纹理。这里告诉你如何用 `frame`来裁剪火箭纹理的大小和位置。
 ```js
 var rectangle = new Rectangle(192, 128, 64, 64);
 texture.frame = rectangle;
 ```
-You can then use that cropped texture to create the sprite:
+你可以用裁剪过的纹理去创建精灵：
 ```js
 var rocket = new Sprite(texture);
 ```
-And that's how it works!
+这就是它工作的原理！
 
-Because making sprite textures from a tileset
-is something you’ll do with great frequency, Pixi has a more convenient way
-to help you do this - let's find out what that is next.
+因为从雪碧图创建精灵纹理是一个你将经常做的事情，Pixi有更多的渐变的方法去帮助你做这些 - 接下来让我们弄清楚这些方法
 
 <a id='textureatlas'></a>
 Using a texture atlas
