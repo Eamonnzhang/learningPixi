@@ -1244,31 +1244,21 @@ function gameLoop(){
 你可以动画精灵的尺寸，旋转或者尺寸 - 任何都可以！你会在下面看到更多动画精灵的例子。
 
 <a id='velocity'></a>
-Using velocity properties
+利用速度特性
 -------------------------
 
-To give you more flexibility, its a good idea to control a sprite's
-movement speed using two **velocity properties**: `vx` and `vy`. `vx`
-is used to set the sprite's speed and direction on the x axis
-(horizontally). `vy` is
-used to set the sprite's speed and direction on the y axis (vertically). Instead of
-changing a sprite's `x` and `y` values directly, first update the velocity
-variables, and then assign those velocity values to the sprite. This is an
-extra bit of modularity that you'll need for interactive game animation.
+为了给你更多的灵活性，用两个 **速度属性** ： `vx` 和 `vy`，去控制精灵的运动速度是一个不错的方式。
+`vx`被用来设置精灵在x轴（水平）的速度和方向。`vy`被用来设置精灵在y轴（垂直）的速度和方向。
+直接更新速度变量并且给精灵指派这些速度值。如果你需要交互性的游戏动画，这是一个额外的模块。
 
-The first step is to create `vx` and `vy` properties on your sprite,
-and give them an initial value.
+第一步是给你的精灵创建 `vx` 和 `vy` 属性，然后给他们初始值。
 ```js
 cat.vx = 0;
 cat.vy = 0;
 ```
-Setting `vx` and `vy` to 0 means that the sprite isn't moving.
+给 `vx` 和 `vy` 设置为0表示精灵不移动。
 
-Next, in the game loop, update `vx` and `vy` with the velocity
-that you want the sprite to move at. Then assign those values to the
-sprite's `x` and `y` properties. Here's how you could use this
-technique to make the cat sprite move down and to right at one pixel each
-frame:
+接下来，在游戏循环中，更新 `vx` 和 `vy` 你想让精灵移动的速度值。然后把这些值赋给精灵的 `x` 和 `y` 属性。下面的代码讲明了你如何利用该技术让猫能够每帧向右下方移动一个像素：
 ```js
 function setup() {
 
@@ -1304,20 +1294,13 @@ function gameLoop(){
 
 
 ```
-When you run this code, the cat will move down and to the right at one
-pixel per frame:
+当你运行这段代码，猫会每帧像右下方移动一个像素：
 
 ![Moving sprites](/examples/images/screenshots/16.png)
 
-What if you want to make the cat move in a different direction? To
-make the cat move to the left, give it a `vx` value of `-1`. To make
-it move up, give the cat a `vy` value of `-1`. To make the cat move
-faster, give it larger `vx` and `vy` values, like `3`, `5`, `-2`, or
-`-4`.
+如果你想让猫在不同的方向移动怎么办？为了让猫向左移动，可以给它的 `vx` 赋值为 `-1`。为了让猫向上移动，可以给猫的 `vy` 赋值为 `-1`。为了让猫移动的更快一点，把 `vx` 和 `vy` 的值设的更大一点，像`3`, `5`, `-2`, 或者 `-4`。
 
-You'll see ahead how modularizing a sprite's velocity with `vx` and
-`vy` velocity properties helps with keyboard and mouse pointer
-control systems for games, as well as making it easier to implement physics.
+你会在前面看到如何通过利用`vx` 和 `vy` 的速度值来模块化精灵的速度，它对游戏的键盘和鼠标控制系统很有帮助，而且更容易实现物理现象。
 
 <a id='gamestates'></a>
 Game states
