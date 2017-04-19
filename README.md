@@ -1851,13 +1851,10 @@ triangle.y = 22;
 stage.addChild(triangle);
 ```
 <a id='text'></a>
-Displaying text
+展示文字
 ---------------
 
-Use a `Text` object (`PIXI.Text`) to display text on the stage. The constructor
-takes two arguments: the text you want to display and a style object
-that defines the font’s properties. Here's how to display the words
-"Hello Pixi", in white, 32 pixel high Arial font.
+用 `Text` 对象（`PIXI.Text`）在舞台上显示文字。这个构造函数接收两个参数：一个是你想展示的文字，一个是样式对象，它定义了字体的属性。这里告诉你如何展示一个白色的，32像素高的，"Hello Pixi"单词。
 ```js
 var message = new Text(
   "Hello Pixi!",
@@ -1869,60 +1866,37 @@ stage.addChild(message);
 ```
 ![Displaying text](/examples/images/screenshots/24.png)
 
-Pixi’s Text objects inherit from the `Sprite` class, so they
-contain all the same properties like `x`, `y`, `width`, `height`,
-`alpha`, and `rotation`. Position and resize text on the stage just like you would any other sprite.
+Pixi的文字对象继承了 `Sprite` 类，所以它们包含了像`x`, `y`, `width`, `height`,
+`alpha`, 和 `rotation`相同的属性。在舞台上定位和缩放文字跟其他精灵是一样的。
 
-If you want to change the content of a text object after you've
-created it, use the `text` property.
+如果你想改变文字对象的内容，用 `text` 属性。
 ```js
 message.text = "Text changed!";
 ```
-Use the `style` property if you want to redefine the font properties.
+用 `style` 属性去重新定义字体的属性。
 ```js
 message.style = {fill: "black", font: "16px PetMe64"};
 ```
-Pixi makes text objects by using the Canvas Drawing API to
-render the text to an invisible and temporary canvas
-element. It then turns the canvas into a WebGL texture so that it
-can be mapped onto a sprite. That’s why the text’s color needs to be
-wrapped in a string: it’s a Canvas Drawing API color value. As with
-any canvas color values, you can use words for common colors like
-“red” or “green”, or use rgba, hsla or hex values.
+Pixi通过使用Canvas的绘图API去渲染文字为一个无形的临时画布元素。然后它这个画布转化为WebGL纹理，让它能够映射到一个精灵元素。这就是为什么文字的颜色需要是字符串格式：它是Canvas绘图API的颜色值。作为任何其他Canvas颜色值，你可以用像 “red” 或者 “green”, 或者用 rgba, hsla 或者 hex 值。
 
-Other style properties that you can include are `stroke` for the font
-outline color and `strokeThickness` for the outline thickness. Set the
-text's `dropShadow` property to `true` to make the text display a
-shadow. Use `dropShadowColor` to set the shadow's hexadecimal color
-value, use `dropShadowAngle` to set the shadow's angle in radians, and
-use `dropShadowDistance` to set the pixel height of a shadow. And
-there's more: [check out Pixi's Text documentation for the full
-list](http://pixijs.download/release/docs/PIXI.Text.html).
+其他你可以添加的样式属性有 `stroke` 用来给字体设定轮廓的颜色，还有 `strokeThickness` 设置文字的轮廓的厚度。设置文字的 `dropShadow` 的属性为 `true` 可以让文字显示阴影。用 `dropShadowColor` 设置阴影一个16进制的颜色值，用 `dropShadowAngle` 设置阴影的角度弧度，用 `dropShadowDistance` 设置阴影的像素高度。这儿还有更多: [查看Pixi的文字文档](http://pixijs.download/release/docs/PIXI.Text.html)。
 
-Pixi can also wrap long lines of text. Set the text’s `wordWrap` style
-property to `true`, and then set `wordWrapWidth` to the maximum length
-in pixels, that the line of text should be. Use the `align` property
-to set the alignment for multi-line text.
+Pixi也能够包裹很长的一行文字。设置文字的 `wordWrap` 样式为 `true`，然后设置 `wordWrapWidth` 为最大长度像素 - 就是这行文字该有的长度。用 `align` 属性设置多行文字的对齐方式。
 ```js
 message.style = {wordWrap: true, wordWrapWidth: 100, align: center};
 ```
-(Note: `align` doesn't affect single line text.)
+（注意：`align` 不回影响单行文字 。）
 
-If you want to use a custom font file, use the CSS `@font-face` rule
-to link the font file to the HTML page where your Pixi application is
-running.
+如果你想使用自定义字体，用CSS的 `@font-face` 规则在Pixi应用运行的HTML页面中去链接字体文件。
 ```js
 @font-face {
   font-family: "fontFamilyName";
   src: url("fonts/fontFile.ttf");
 }
 ```
-Add this `@font-face` rule to your HTML page's CSS style sheet.
+添加这个 `@font-face` 规则到你的HTML页面的CSS样式表中。
 
-[Pixi also has support for bitmap
-fonts](http://pixijs.download/release/docs/PIXI.extras.BitmapText.html). You
-can use Pixi's loader to load Bitmap font XML files, the same way you
-load JSON or image files.
+[Pixi也支持点阵字体](http://pixijs.download/release/docs/PIXI.extras.BitmapText.html)。你可以用Pixi的加载器加载点阵字体XML文件，跟你加载JSON和图片文件是一样的。
 
 <a id='collision'></a>
 Collision detection
