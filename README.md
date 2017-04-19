@@ -1303,11 +1303,10 @@ function gameLoop(){
 你会在前面看到如何通过利用`vx` 和 `vy` 的速度值来模块化精灵的速度，它对游戏的键盘和鼠标控制系统很有帮助，而且更容易实现物理现象。
 
 <a id='gamestates'></a>
-Game states
+游戏状态
 -----------
 
-As a matter of style, and to help modularize your code, I
-recommend structuring your game loop like this:
+作为一种风格，也是为了帮你模块你的代码，我推荐在游戏循环里像这样组织你的代码：
 ```js
 //Set the game's current state to `play`:
 var state = play;
@@ -1330,13 +1329,9 @@ function play() {
   cat.x += 1;
 }
 ```
-You can see that the `gameLoop` is calling a function called `state` 60 times
-per second. What is the `state` function? It's been assigned to
-`play`. That means all the code in the `play` function will also run at 60
-times per second.
+你会看到 `gameLoop` 每秒60次调用了 `state` 函数。 `state` 函数是什么？它赋值给了 `play`。意味着 `play`函数会每秒运行60次。
 
-Here's how the code from the previous example can be re-factored to
-this new model:
+下面的代码告诉你如果用这个新模式来重构上一个例子的代码：
 ```js
 //Define any variables that are used in more than one function
 var cat, state;
@@ -1376,11 +1371,7 @@ function play() {
   cat.x += cat.vx;
 }
 ```
-Yes, I know, this is a bit of [head-swirler](http://www.amazon.com/Electric-Psychedelic-Sitar-Headswirlers-1-5/dp/B004HZ14VS)! But, don't let it scare
-and you and spend a minute or two walking through in your mind how those
-functions are connected. As you'll see ahead, structuring your game
-loop like this will make it much, much easier to do things like switching
-game scenes and levels.
+是的我知道这有点儿[head-swirler？](http://www.amazon.com/Electric-Psychedelic-Sitar-Headswirlers-1-5/dp/B004HZ14VS)！但是，不要害怕，花几分钟在脑海中过一边这些函数是如何联系在一起的。正如你在将在前面看到的，结构化你的游戏循环代码，会使像切换游戏场景和关卡更简单。
 
 <a id='keyboard'></a>
 Keyboard Movement
