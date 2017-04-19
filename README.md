@@ -1701,52 +1701,37 @@ var superFastSprites = new ParticleContainer(
 （注意：**UV mapping**是一个3D图表展示术语，它指纹理（图片）准备映射到三维表面的x和y的坐标。`U` 是 `x` 轴， `V` 是 `y` 轴。WebGL用 `x`, `y` 和 `z` 来进行三维空间定位，所以 `U` 和 `V` 被选为表示2D图片纹理的 `x` 和 `y` 。）
 
 <a id='graphic'></a>
-Pixi's Graphic Primitives
+Pixi的图元
 -------------------------
 
-Using image textures is one of the most useful ways of making sprites,
-but Pixi also has its own low-level drawing tools. You can use them to
-make rectangles, shapes, lines, complex polygons and text. And,
-fortunately, it uses almost the same API as the [Canvas Drawing API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas) so,
-if you're already familiar with canvas, here’s nothing really new to
-  learn. But the big advantage is that, unlike the Canvas Drawing API,
-  the shapes you draw with Pixi are rendered by WebGL on the GPU. Pixi
-  lets you access all that untapped performance power.
-Let’s take a quick tour of how to make some basic shapes. Here are all
-the shapes we'll make in the code ahead.
+用图片纹理是制作精灵最常用的方式，但是Pixi也有它自己的低层次的绘图工具。你可以用它们来制作矩形，形状，线条，复杂的多边形和文本。不但如此，幸运的是，它用了和[Canvas绘图API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Drawing_graphics_with_canvas)几乎一样的API。如果你已经对canvas非常熟悉了，这就没什么新的东西要学了。但是有一个巨大的优势是，不想Canvas的绘图API，用Pixi画的形状是通过WebGL在GPU上渲染的。Pixi让你能够达到所有未开发的性能。让我们来看看如何制作一些基本形状，这是我们要在代码里创建的所有形状：
 
 ![Graphic primitives](/examples/images/screenshots/23.png)
 
 <a id='rectangles'></a>
-### Rectangles
+### 矩形
 
-All shapes are made by first creating a new instance of Pixi's
-`Graphics` class (`PIXI.Graphics`).
+每个形状都是 Pixi 的 `Graphics` 类 (`PIXI.Graphics`)的一个新实例。
 ```js
 var rectangle = new Graphics();
 ```
-Use `beginFill` with a hexadecimal color code value to set the
-rectangle’ s fill color. Here’ how to set to it to light blue.
+用  `beginFill` 传入一个16进制的色值去设置矩形的填充颜色。这儿告诉你如何试着它为浅蓝：
 ```js
 rectangle.beginFill(0x66CCFF);
 ```
-If you want to give the shape an outline, use the `lineStyle` method. Here's
-how to give the rectangle a 4 pixel wide red outline, with an `alpha`
-value of 1.
+如果你想给形状一个轮廓，用 `lineStyle` 方法。这儿告诉你如果给矩形一个4像素宽的红色轮廓，透明度为1.
 ```js
 rectangle.lineStyle(4, 0xFF3300, 1);
 ```
-Use the `drawRect` method to draw the rectangle. Its four arguments
-are `x`, `y`, `width` and `height`.
+用 `drawRect` 方法画一个矩形。它有四个参数： `x`, `y`, `width` 和 `height`。
 ```js
 rectangle.drawRect(x, y, width, height);
 ```
-Use `endFill` when you’re done.
+当你完成时，调用 `endFill` 。
 ```js
 rectangle.endFill();
 ```
-It’s just like the Canvas Drawing API! Here’s all the code you need to
-draw a rectangle, change its position, and add it to the stage.
+跟Canvas的绘图API很像！这就是你画一个矩形，改变它的位置，然后添加到舞台上的所有代码：
 ```js
 var rectangle = new Graphics();
 rectangle.lineStyle(4, 0xFF3300, 1);
@@ -1758,18 +1743,17 @@ rectangle.y = 170;
 stage.addChild(rectangle);
 
 ```
+这段代码制作了一个64x64的，蓝色的，带红色边框的，x和y的位置是170的矩形。
 This code makes a 64 by 64 blue rectangle with a red border at an x and y position of 170.
 
 <a id='circles'></a>
-### Circles
+### 圆形
 
-Make a circle with the `drawCircle` method. Its three arguments are
-`x`, `y` and `radius`
+用 `drawCircle` 方法制作一个圆形。它的三个参数是：`x`, `y` 和 `radius`。
 ```js
 drawCircle(x, y, radius)
 ```
-Unlike rectangles and sprites, a circle’s x and y position is also its
-center point. Here’s how to make a violet colored circle with a radius of 32 pixels.
+和矩形以及精灵图不同的是，圆形的x和y的值是它的中心点，这儿告诉你如何制作一个半径为32像素，蓝紫色的圆形。
 ```js
 var circle = new Graphics();
 circle.beginFill(0x9966FF);
@@ -1780,16 +1764,13 @@ circle.y = 130;
 stage.addChild(circle);
 ```
 <a id='ellipses'></a>
-### Ellipses
-As a one-up on the Canvas Drawing API, Pixi lets you draw an ellipse
-with the `drawEllipse` method.
+### 椭圆
+
+比Canvas的绘图API更胜一筹的是，Pixi能让你通过 `drawEllipse` 方法画一个椭圆。
 ```js
 drawEllipse(x, y, width, height);
 ```
-The x/y position defines the ellipse’s top left corner (imagine that
-the ellipse is surrounded by an invisible rectangular bounding box -
-the top left corner of that box will represent the ellipse's x/y
-anchor position). Here’s a yellow ellipse that’s 50 pixels wide and 20 pixels high.
+x/y的位置定义了椭圆的左上角（想象一下椭圆被一个可见的矩形包围 - 这个矩形的左上角代表了椭圆的x和y的锚点）。这是一个宽为50像素，高为20像素的黄色椭圆。
 ```js
 var ellipse = new Graphics();
 ellipse.beginFill(0xFFFF00);
@@ -1800,16 +1781,13 @@ ellipse.y = 130;
 stage.addChild(ellipse);
 ```
 <a id='roundedrect'></a>
-### Rounded rectangles
+### 圆角矩形
 
-Pixi also lets you make rounded rectangles with the `drawRoundedRect`
-method. The last argument, `cornerRadius` is a number in pixels that
-determines by how much the corners should be rounded.
+Pixi也能让你通过 `drawRoundedRect` 方法制作圆角矩形。最后一个参数， `cornerRadius`是一个以像素为单位的数值，决定了圆角的弯曲程度。
 ```js
 drawRoundedRect(x, y, width, height, cornerRadius)
 ```
-Here's how to make a rounded rectangle with a corner radius of 10
-pixels.
+下面告诉你如何制作一个圆角为10像素的圆角矩形。
 ```js
 var roundBox = new Graphics();
 roundBox.lineStyle(4, 0x99CCFF, 1);
@@ -1821,12 +1799,9 @@ roundBox.y = 190;
 stage.addChild(roundBox);
 ```
 <a id='lines'></a>
-### Lines
+### 线条
 
-You've seen in the examples above that the `lineStyle` method lets you
-define a line.  You can use the `moveTo` and `lineTo` methods to draw the
-start and end points of the line, in just the same way you can with the Canvas
-Drawing API. Here’s how to draw a 4 pixel wide, white diagonal line.
+你已经在前面的例子中看到 `lineStyle` 方法能够让你定义一条线。你可以用 `moveTo` 和 `lineTo` 方法去画线条的开始和结束点，跟你在Cavnas绘图API是一样的。这告诉你如何画一个4像素宽的，白色的对角线。
 ```js
 var line = new Graphics();
 line.lineStyle(4, 0xFFFFFF, 1);
@@ -1836,17 +1811,12 @@ line.x = 32;
 line.y = 32;
 stage.addChild(line);
 ```
-`PIXI.Graphics` objects, like lines, have `x` and `y` values, just
-like sprites, so you can position them anywhere on the stage after
-you've drawn them.
+`PIXI.Graphics` 对象，像线条，有 `x` 和 `y` 的值，和精灵是一样的，所以在画完他们之后，你可以把它们定位在舞台上的任何地方。
 
 <a id='polygons'></a>
-### Polygons
+### 多边形
 
-You can join lines together and fill them with colors to make complex
-shapes using the `drawPolygon` method. `drawPolygon`'s argument is an
-path array of x/y points that define the positions of each point on the
-shape.
+你可以把线聚合在一起然后给它们填充不同的颜色从而用 `drawPolygon` 方法制作复杂的图形。`drawPolygon`的参数是一个xy点的数组，定义了图形上的每个点的位置：
 ```js
 var path = [
   point1X, point1Y,
@@ -1856,11 +1826,7 @@ var path = [
 
 graphicsObject.drawPolygon(path);
 ```
-`drawPolygon` will join those three points together to make the shape.
-Here’s how to use `drawPolygon` to connect three lines together to
-make a red triangle with a blue border. The triangle is drawn at
-position 0,0 and then moved to its position on the stage using its
-`x` and `y` properties.
+`drawPolygon` 会把这三个点结合在一起制作一个形状。这里告诉你如何用 `drawPolygon` 去连接三条线在一起，去做一个蓝色边框的红色三角形。这个三角形在0,0位置被绘制，然后用它的`x` 和 `y`属性移动它在舞台上的位置。
 ```js
 var triangle = new Graphics();
 triangle.beginFill(0x66FF33);
