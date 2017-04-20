@@ -1,7 +1,7 @@
 学习Pixi
 =============
 
-一步一步的介绍如何用[Pixi渲染引擎](https://github.com/pixijs/pixi.js) 制作游戏和交互性多媒体。 **[更新至 Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. 如果你喜欢本教程 [你肯定会喜欢这本书，它包含了更多80%的内容！](http://www.springer.com/us/book/9781484210956)
+一步一步的告诉你如何通过[Pixi渲染引擎](https://github.com/pixijs/pixi.js) 制作游戏和交互媒体。 **[更新至 Pixi v4.0.0](https://github.com/pixijs/pixi.js/releases/tag/v4.0.0)**. 如果你喜欢本教程 [你肯定会喜欢这本书，它包含了比本教程多出80%的内容！](http://www.springer.com/us/book/9781484210956)
 
 ### 目录表：
 1. [介绍](#introduction)
