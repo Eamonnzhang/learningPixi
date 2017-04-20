@@ -6,17 +6,17 @@
 ### 目录表：
 1. [介绍](#introduction)
 2. [建立环境](#settingup)
-  1. [安装Pixi的简单方法](#installingpixithesimpleway)
-  2. [通过Git安装Pixi](#installingpixiwithgit)
-  3. [通过Node和Gulp安装Pixi](#installingpixiwithnodeandgulp)
+   1. [安装Pixi的简单方法](#installingpixithesimpleway)
+   2. [通过Git安装Pixi](#installingpixiwithgit)
+   3. [通过Node和Gulp安装Pixi](#installingpixiwithnodeandgulp)
 3. [创建舞台的渲染器](#renderer)
 4. [Pixi 精灵](#sprites)
 5. [把图片加载到纹理缓存里](#loading)
 6. [展示精灵](#displaying)
-  1. [通过别名](#usingaliases)
-  2. [更过关于加载的小技巧](#alittlemoreaboutloadingthings)
-    1. [从普通JavaScript图像对象或画布中创建一个精灵](#makeaspritefromanordinaryjavascriptimageobject)
-    2. [为已加载的文件指定一个名字](#assigninganametoaloadingfile)
+   1. [通过别名](#usingaliases)
+   2. [更过关于加载的小技巧](#alittlemoreaboutloadingthings)
+      1. [从普通JavaScript图像对象或画布中创建一个精灵](#makeaspritefromanordinaryjavascriptimageobject)
+      2. [为已加载的文件指定一个名字](#assigninganametoaloadingfile)
     3. [监控加载进度](#monitoringloadprogress)
     4. [更多关于Pixi加载器](#moreaboutpixisloader)
 7. [定位精灵](#positioning)
@@ -25,40 +25,40 @@
 10. [从背景子图像集中制作精灵](#tileset)
 11. [使用纹理地图集（texture atlas）？](#textureatlas)
 12. [加载纹理地图集](#loadingatlas)
-13. [从一个已加载的纹理地图集中制作精灵](#createsprites)
+13. [从一个已加载的纹理地图集中制作精灵](#creating-sprites-from-a-loaded-texture-atlas)
 14. [移动精灵](#movingsprites)
 15. [使用速度属性](#velocity)
 16. [游戏状态](#gamestates)
 17. [键盘动作](#keyboard)
 18. [分组的精灵](#grouping)
-  1. [局部和全局位置](#localnglobal)
-  2. [给分组精灵用 ParticleContainer](#spritebatch)
+    1. [局部和全局位置](#localnglobal)
+    2. [给分组精灵用 ParticleContainer](#spritebatch)
 19. [Pixi的图元](#graphic)
-  1. [矩形](#rectangle)
-  2. [圆形](#circles)
-  3. [椭圆](#ellipses)
-  4. [圆角矩形](#roundedrects)
-  5. [线条](#lines)
-  6. [多边形](#polygons)
+    1. [矩形](#rectangles)
+    2. [圆形](#circles)
+    3. [椭圆](#ellipses)
+    4. [圆角矩形](#rounded-rectangles)
+    5. [线条](#lines)
+    6. [多边形](#polygons)
 20. [展示文字](#text)
 21. [碰撞检测](#collision)
-  1. [ hitTestRectangle 函数](hittest)
+    1. [ hitTestRectangle 函数](#the-hittestrectangle-function)
 22. [实战学习: 宝藏猎手](#casestudy)
-  1. [利用 setup 函数初始化游戏](#initialize)
-    1. [创建游戏场景](#gamescene)
-    2. [制作地牢, 门, 探险者 和 宝藏](#makingdungon)
-    3. [制作一堆怪物](#makingblob)
-    4. [制作血条](#healthbar)
-    5. [制作消息文字](#message)
-  2. [玩游戏](#playing)
-  3. [移动探险者](#movingexplorer)
-    1. [控制移动](#containingmovement)
-  4. [移动怪物](#movingmonsters)
-  5. [碰撞检查](#checkingcollisions)
-  6. [到达出口并结束游戏](#reachingexit)
+    1. [利用 setup 函数初始化游戏](#initialize)
+       1. [创建游戏场景](#gamescene)
+       2. [制作地牢, 门, 探险者 和 宝藏](#makingdungon)
+       3. [制作一堆怪物](#makingblob)
+       4. [制作血条](#healthbar)
+       5. [制作消息文字](#message)
+    2. [玩游戏](#playing)
+    3. [移动探险者](#movingexplorer)
+       1. [控制移动](#containingmovement)
+    4. [移动怪物](#movingmonsters)
+    5. [碰撞检查](#checkingcollisions)
+    6. [到达出口并结束游戏](#reachingexit)
 23. [更多关于精灵](#spriteproperties)
 24. [更进一步](#takingitfurther)</br>
-  i.[Hexi](#hexi)</br>
+    1. [Hexi](#hexi)</br>
 25. [支持该项目](#supportingthisproject)
 
 <a id='introduction'></a>
@@ -173,21 +173,9 @@ Pixi安装之后，创建一个基本的HTML文档，然后用`<script>`标签�
 ```html
 <script src="pixi.js/bin/pixi.js"></script>
 ```
-(If you prefer, you could link to the `pixi.min.js` file instead as I
-suggested in the previous section. The
-minified file might actually run slightly faster, and it will
-certainly load faster. The advantage to using the
-un-minified plain JS file is that if the compiler thinks there's a bug in Pixi's
-source code, it will give you an error message that displays the questionable code
-in a readable format. This is useful while you're working on a
-project, because even if the bug isn't in Pixi, the error might give
-you a hint as to what's wrong with your own code.)
+（如果你喜欢，你可以用 `pixi.min.js` 文件去替换上一节我建议的文件。这个压缩过的文件实际上运行的稍微快一点，而且它当然也会加载的更快。用原生的未压缩过的文件的优势在于如果编译器发现Pixi的源代码里有bug，它会用一个可读的格式，显示出有问题代码的错误信息。这对你开发一个项目很有用，因为如果bug不是在Pixi里面，那么这个错误可能按时你的代码有问题。）
 
-In this **Learning Pixi** repository (what you're reading now!) you'll find a folder called
-`examples`. Open it and you'll find a file called `helloWorld.html`.
-Assuming that the webserver is running in this repository's root directory, this is
-how the `helloWorld.html` file correctly links to Pixi and checks that it's
-working:
+在这个 **Learning Pixi** 仓库里（你正在读！）你会发现一个文件夹名为 `examples`。打开它，你会找到一个文件叫`helloWorld.html`。假设服务器实在此仓库的根目录下运行的，这就是 `helloWorld.html` 文件如何正确的加载Pixi：
 ```html
 <!doctype html>
 <html>
@@ -200,19 +188,15 @@ working:
 </body>
 </html>
 ```
-If Pixi is linking correctly, something like this will be displayed in your web browser's JavaScript console by default:
+如果Pixi加载正确，下面的东西会默认出现在你的web浏览器的JavaScript控制台里：
 ```
  Pixi.js 4.0.0 - ✰ WebGL ✰      http://www.pixijs.com/    ♥♥♥ 
 ```
 
 <a id='installingpixiwithnodeandgulp'></a>
-### Installing Pixi with Node and Gulp
+### 通过Nod和Gulp安装Pixi
 
-You can also install Pixi using [Node](https://nodejs.org) and [Gulp](http://gulpjs.com). If you need
-to do a custom build of Pixi to include or exclude certain features,
-this is the route you should take. [See Pixi's GitHub repository for
-details on how](https://github.com/GoodBoyDigital/pixi.js). But, in general
-there's no need to do this.
+你也可以通过 [Node](https://nodejs.org) 和 [Gulp](http://gulpjs.com)来安装Pixi。如果你需要对Pixi进行一次常规的构建来引入或者排除某些特性，你应该选择这条路线。[看看Pixi的GitHub仓库了解更多细节](https://github.com/GoodBoyDigital/pixi.js)。但是，通常没有必要这么做。
 
 <a id='renderer'></a>
 创建渲染器和舞台
@@ -2451,7 +2435,7 @@ function end() {
 ```
 它仅仅是反转了游戏场景的显示。这就是当游戏结束的时候隐藏 `gameScene` 和显示 `gameOverScene` 。
 
-这是一个如果更换游戏状态的一个很简单的例子，但是你可以想在你的游戏里添加多少状态就添加多少状态，然后给它们添加你需要的代码。然后改变 `state` 为任何你想循环的函数。
+这是一个如何更换游戏状态的一个很简单的例子，但是你可以想在你的游戏里添加多少状态就添加多少状态，然后给它们添加你需要的代码。然后改变 `state` 为任何你想循环的函数。
 
 这就是完成宝藏猎手所需要的一切了。然后在通过做更多一点的工作就能把这个简单的原型变成一个完整的游戏 - 快去试试吧！
 
@@ -2502,7 +2486,7 @@ https://github.com/kittykatattack/hexi
 
 [Learn PixiJS](http://www.springer.com/us/book/9781484210956)
 
-（它不仅仅是一本毫无价值的『电子书』，是一本真实的，很厚的纸质书，由世界上最大的出版商，施普林格出版！这意味着你可以邀请你的朋友过来，防火，烤棉花糖！！）它比本教程多出了80%的内容，它充满了所有如何用Pixi制作所有交互应用和游戏的必要的技术。
+（它可不是一本毫无价值的『电子书』，而是一本真实的，很厚的纸质书，由世界上最大的出版商，施普林格出版！这意味着你可以邀请你的朋友过来，防火，烤棉花糖！！）它比本教程多出了80%的内容，它充满了所有如何用Pixi制作所有交互应用和游戏的必要的技术。
 
 怎么做到的:
 
